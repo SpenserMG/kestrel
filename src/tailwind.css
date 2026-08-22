@@ -1,0 +1,4 @@
+/* Preflight intentionally omitted — it conflicts with Angular Material's own base styles. */
+/* Only Tailwind's theme + utilities are loaded, per CLAUDE.md Styling & Theming conventions. */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
