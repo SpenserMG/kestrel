@@ -1,0 +1,30 @@
+<mat-form-field [appearance]="appearance()" subscriptSizing="dynamic">
+  <mat-select
+    class="app-select"
+    panelClass="app-select-panel"
+    [panelWidth]="null"
+    [aria-label]="label()"
+    [(value)]="value"
+  >
+    @if (selectedOption(); as selected) {
+      <mat-select-trigger>
+        <span class="flex items-center gap-2">
+          @if (selected.icon; as iconName) {
+            <app-icon [name]="iconName" />
+          }
+          {{ selected.label }}
+        </span>
+      </mat-select-trigger>
+    }
+    @for (option of options(); track option.value) {
+      <mat-option [value]="option.value">
+        <span class="flex items-center gap-2">
+          @if (option.icon; as iconName) {
+            <app-icon [name]="iconName" />
+          }
+          {{ option.label }}
+        </span>
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>

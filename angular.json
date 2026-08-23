@@ -27,10 +27,11 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
-            "styles": ["src/tailwind.css", "src/styles.scss"],
+            "styles": ["src/styles/tailwind.css", "src/styles/styles.scss"],
             "security": {
               "allowedHosts": []
             }
@@ -72,7 +73,10 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "setupFiles": ["src/test-setup.ts"]
+          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",

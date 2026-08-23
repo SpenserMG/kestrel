@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: inline-block;
+
+  mat-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+}
+
+// First-pass palette theming for this atom's mat-select trigger, scoped to
+// its own class rather than overriding every mat-select app-wide.
+.app-select {
+  display: flex;
+
+  @include mat.select-overrides(
+    (
+      focused-arrow-color: var(--mat-sys-primary),
+    )
+  );
+}
+
+// The options panel is portaled to <body> by the CDK overlay, so it isn't a
+// DOM descendant of .app-select and can't be reached with a descendant
+// selector — `panelClass` tags it directly so the override can still be
+// scoped to this component instead of every mat-option app-wide.
+.app-select-panel {
+  @include mat.option-overrides(
+    (
+      selected-state-label-text-color: var(--mat-sys-on-primary-container),
+      selected-state-layer-color: var(--mat-sys-primary-container),
+    )
+  );
+}

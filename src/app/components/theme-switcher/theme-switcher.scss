@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: inline-block;
+
+  // Compact this instance down from Material's default form-field sizing —
+  // as a header control it doesn't need full-size touch targets or text.
+  @include mat.form-field-overrides((
+    container-height: 24px,
+    container-vertical-padding: 0.5rem,
+    container-text-size: 0.875rem,
+    outlined-label-text-size: 0.875rem,
+    outlined-label-text-populated-size: 0.75rem,
+    filled-label-text-size: 0.875rem,
+  ));
+}

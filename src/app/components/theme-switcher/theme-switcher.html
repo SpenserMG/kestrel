@@ -1,0 +1,7 @@
+<app-select
+  label="Theme"
+  [options]="options"
+  [value]="theme.current()"
+  [appearance]="appearance()"
+  (valueChange)="onValueChange($event)"
+/>
