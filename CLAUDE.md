@@ -180,3 +180,8 @@ describe('Button', () => {
   - Tailwind's Preflight base reset must be disabled — it conflicts with Angular Material's own base styles. Tailwind supplies utility classes only.
   - Never use Tailwind's color utilities (e.g. `bg-red-500`, `text-slate-800`) — color always comes from the Material theme tokens, keeping a single source of truth for color.
   - Build pages with each Tailwind breakpoint in mind — responsive by default, not an afterthought.
+
+## Assets
+
+- All static assets — favicons, SVGs, PNGs, and any other image/icon files — live in `src/assets`, not `public`. There is no `public` directory in this project.
+- `angular.json` maps `src/assets` to an `assets` output directory via the `build.options.assets` glob entry. Reference assets in code and HTML with an `assets/` prefix (e.g. `assets/bird.svg`, `href="assets/favicon.ico"`).

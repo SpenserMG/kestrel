@@ -73,6 +73,10 @@ $_primary-palette: map.merge(
       transition: width 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
+  // Fixed (non-theme-swapping) reference to the light theme's sidenav/header
+  // background, so components can intentionally reuse it in dark mode too.
+  --bird-fill-dark-theme: #{map.get(palette.$neutral, 96)};
+
   /* core typography tokens are not generating css variables, hence below */
   --mat-sys-brand-font-family: Quicksand;
   --mat-sys-plain-font-family: Quicksand;

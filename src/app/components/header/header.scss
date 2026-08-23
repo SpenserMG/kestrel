@@ -5,3 +5,13 @@
   color: var(--mat-sys-on-surface);
   border-bottom: 1px solid var(--mat-sys-outline-variant);
 }
+
+a {
+  display: inline-flex;
+  border-radius: 50%;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
