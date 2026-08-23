@@ -22,7 +22,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Keep components small and focused on a single responsibility.
 - Think in terms of atomic design — atoms → molecules → organisms → pages — as a mental model and naming vocabulary. This is not a mandated folder structure; file/folder organization is intentionally left to develop organically rather than being fixed upfront.
 - Every component gets 4 separate files: `name.ts`, `name.html`, `name.scss`, `name.spec.ts`. No inline templates or styles, even for trivial components.
-- Use Angular Material for all applicable UI primitives, styled through the M3 theme tokens defined in `src/styles.scss`.
+- Use Angular Material for all applicable UI primitives, styled through the M3 theme tokens defined in `src/styles/styles.scss`.
 - Wrap every Material primitive used directly in the app in our own atom component (selector prefix `app-`), e.g. `app-button` wraps `MatButton`. This keeps one seam for app-wide restyling/behavior changes instead of touching every usage site.
   - Wrapper components stay narrow: expose our own contract, forward to Material, no business logic.
   - Wrapper contracts are narrow and opinionated by default — expose a curated subset of variants/inputs rather than mirroring Material's full API surface. Expand only when a real use case needs it.
@@ -172,9 +172,9 @@ describe('Button', () => {
 
 ## Styling & Theming
 
-- Global-first: styling should be handled at the global level (`src/styles.scss` plus reusable utility classes) by default. Only move styling down a level — to the page, then the component, then the smallest atom/molecule — when it truly can't be expressed globally or via a utility class.
+- Global-first: styling should be handled at the global level (`src/styles/styles.scss` plus reusable utility classes) by default. Only move styling down a level — to the page, then the component, then the smallest atom/molecule — when it truly can't be expressed globally or via a utility class.
   - Net effect: pages should have close to zero custom styling; most styling lives globally or in the smallest, most reusable components.
-- Color/theming is entirely token-driven, via a single defined list of color tokens set per theme. This is defined in `src/styles.scss` via `mat.theme-overrides` under `:root, :host` (light) and `.dark` (dark) — add more themes later as additional selector blocks.
+- Color/theming is entirely token-driven, via a single defined list of color tokens set per theme. This is defined in `src/styles/styles.scss` via `mat.theme-overrides` under `:root, :host` (light) and `.dark` (dark) — add more themes later as additional selector blocks.
 - Typography stays constant across all themes.
 - Layout, breakpoints, and spacing are handled by Tailwind CSS, using Tailwind's default breakpoints.
   - Tailwind's Preflight base reset must be disabled — it conflicts with Angular Material's own base styles. Tailwind supplies utility classes only.

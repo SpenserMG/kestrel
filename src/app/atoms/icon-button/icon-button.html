@@ -1,0 +1,9 @@
+<button
+  matIconButton
+  type="button"
+  [attr.aria-label]="label()"
+  [disabled]="disabled()"
+  (click)="pressed.emit()"
+>
+  <app-icon [name]="icon()" />
+</button>

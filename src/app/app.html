@@ -1,10 +1,28 @@
-<mat-sidenav-container class="h-screen">
-  <mat-sidenav mode="side" opened>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/home">Home</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet />
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="flex h-screen flex-col">
+  <app-header />
+  <mat-sidenav-container class="flex-1">
+    <mat-sidenav
+      class="app-sidenav"
+      mode="side"
+      opened
+      [style.--mat-sidenav-container-width]="navWidth()"
+    >
+      <div class="flex justify-end p-1">
+        <app-icon-button
+          [icon]="navCollapsed() ? 'chevron_right' : 'chevron_left'"
+          [label]="navCollapsed() ? 'Expand navigation' : 'Collapse navigation'"
+          (pressed)="toggleNav()"
+        />
+      </div>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/home">
+          <app-icon matListItemIcon name="home" />
+          <span [class.sr-only]="navCollapsed()">Home</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content [style.margin-left]="navWidth()">
+      <router-outlet />
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

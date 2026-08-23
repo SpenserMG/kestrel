@@ -1,0 +1,120 @@
+// M3 tonal palettes, generated from each role's base hex using the HCT
+// (hue/chroma/tone) color space Material Design itself uses, so tones read
+// consistently with Angular Material's own built-in palettes.
+//
+// Base hexes: primary #386943 (tone 40), secondary #9a452d (tone 40),
+// tertiary #d2ae51 (tone 73), neutral #f4e0c3 (tone 90), error #ba1a1a
+// (tone 40). neutral-variant is derived from neutral's hue (81.17) with a
+// higher chroma floor (neutral chroma 12.93 -> neutral-variant chroma
+// 19.93), matching Material's own neutral / neutral-variant relationship.
+//
+// neutral / neutral-variant carry extra tone stops (4, 6, 12, 17, 22, 24,
+// 87, 92, 94, 96, 98) beyond the standard 0-100-by-10 set because the M3
+// surface/background/outline roles are defined at those specific tones.
+
+$primary: (
+  0: #000000,
+  10: #00210b,
+  20: #023918,
+  30: #1f502d,
+  40: #386943,
+  50: #50825a,
+  60: #699c72,
+  70: #83b78b,
+  80: #9ed3a5,
+  90: #b9f0bf,
+  95: #c7fecd,
+  99: #f5fff2,
+  100: #ffffff,
+);
+
+$secondary: (
+  0: #000000,
+  10: #3b0900,
+  20: #5d1804,
+  30: #7b2e18,
+  40: #9a452d,
+  50: #b95c43,
+  60: #d87559,
+  70: #f88f71,
+  80: #ffb5a0,
+  90: #ffdbd1,
+  95: #ffede8,
+  99: #fffbff,
+  100: #ffffff,
+);
+
+$tertiary: (
+  0: #000000,
+  10: #251a00,
+  20: #3e2e00,
+  30: #594400,
+  40: #765b00,
+  50: #92731a,
+  60: #ae8d33,
+  70: #caa74b,
+  80: #e8c263,
+  90: #ffdf94,
+  95: #ffefd0,
+  99: #fffbff,
+  100: #ffffff,
+);
+
+$neutral: (
+  0: #000000,
+  4: #150d01,
+  6: #1b1203,
+  10: #241a08,
+  12: #281e0c,
+  17: #332815,
+  20: #3a2f1b,
+  22: #3f331f,
+  24: #433723,
+  30: #524530,
+  40: #6b5c46,
+  50: #84755d,
+  60: #9f8e75,
+  70: #bba98e,
+  80: #d7c4a8,
+  87: #ebd7bb,
+  90: #f4e0c3,
+  92: #fae5c8,
+  94: #ffebcf,
+  95: #ffeed8,
+  96: #fff2e1,
+  98: #fff8f3,
+  99: #fffbff,
+  100: #ffffff,
+);
+
+$neutral-variant: (
+  0: #000000,
+  10: #271900,
+  20: #3e2e0e,
+  30: #574422,
+  40: #705b37,
+  50: #8a744e,
+  60: #a68d65,
+  70: #c2a87d,
+  80: #dec397,
+  90: #fcdfb1,
+  95: #ffeed8,
+  99: #fffbff,
+  100: #ffffff,
+);
+
+$error: (
+  0: #000000,
+  10: #410002,
+  20: #690004,
+  30: #930009,
+  40: #ba1a1a,
+  50: #de372f,
+  60: #ff5449,
+  70: #ff897d,
+  80: #ffb4ab,
+  90: #ffdad5,
+  95: #ffedea,
+  99: #fffbff,
+  100: #ffffff,
+);

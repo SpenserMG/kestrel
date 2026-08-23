@@ -1,0 +1,7 @@
+:host {
+  display: block;
+  flex-shrink: 0;
+  background-color: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
