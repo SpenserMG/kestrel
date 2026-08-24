@@ -1,0 +1,33 @@
+<div class="mx-auto flex max-w-sm flex-col items-center gap-4 p-4">
+  <h1>Tic-Tac-Toe</h1>
+
+  <p aria-live="polite">
+    @if (winner(); as activeWinner) {
+      {{ activeWinner }} wins!
+    } @else if (isDraw()) {
+      It's a draw!
+    } @else {
+      {{ currentPlayer() }}'s turn
+    }
+  </p>
+
+  <div class="tic-tac-toe-board grid grid-cols-3 gap-2">
+    @for (cell of board(); track $index) {
+      <button
+        type="button"
+        class="tic-tac-toe-cell"
+        matRipple
+        [matRippleDisabled]="isGameOver() || !!cell"
+        [attr.aria-label]="'Cell ' + ($index + 1) + (cell ? ', ' + cell : ', empty')"
+        [disabled]="isGameOver() || !!cell"
+        (click)="selectCell($index)"
+      >
+        {{ cell }}
+      </button>
+    }
+  </div>
+
+  <app-button label="New game" (pressed)="reset()" />
+
+  <p>X wins: {{ stats().xWins }} &middot; O wins: {{ stats().oWins }} &middot; Draws: {{ stats().draws }}</p>
+</div>

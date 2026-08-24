@@ -19,6 +19,10 @@
           <app-icon matListItemIcon name="home" />
           <span [class.sr-only]="navCollapsed()">Home</span>
         </a>
+        <a mat-list-item routerLink="/games">
+          <app-icon matListItemIcon name="stadia_controller" />
+          <span [class.sr-only]="navCollapsed()">Games</span>
+        </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content [style.margin-left]="navWidth()">

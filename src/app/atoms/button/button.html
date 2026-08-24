@@ -1,0 +1,17 @@
+@switch (variant()) {
+  @case ('outlined') {
+    <button matButton="outlined" type="button" [disabled]="disabled()" (click)="pressed.emit()">
+      {{ label() }}
+    </button>
+  }
+  @case ('text') {
+    <button matButton type="button" [disabled]="disabled()" (click)="pressed.emit()">
+      {{ label() }}
+    </button>
+  }
+  @default {
+    <button matButton="filled" type="button" [disabled]="disabled()" (click)="pressed.emit()">
+      {{ label() }}
+    </button>
+  }
+}
