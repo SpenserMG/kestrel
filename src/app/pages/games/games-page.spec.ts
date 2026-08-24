@@ -40,6 +40,17 @@ describe('GamesPage', () => {
     );
   });
 
+  it('renders a tile linking to connect four', async () => {
+    await harness.renderComponent();
+
+    expect(screen.getByText('Connect Four')).toBeInTheDocument();
+    expect(screen.getByText('Drop pieces, get four in a row')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Connect Four/ })).toHaveAttribute(
+      'href',
+      '/games/connect-four',
+    );
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = await harness.renderComponent();
     await expectNoA11yViolations(container);

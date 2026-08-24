@@ -66,4 +66,21 @@ describe('GameStats', () => {
 
     expect(gameStats.memoryMatch()).toEqual({ bestMoves: { easy: 10, hard: 30 } });
   });
+
+  it('defaults to zeroed connect four stats', () => {
+    const gameStats = TestBed.inject(GameStats);
+
+    expect(gameStats.connectFour()).toEqual({ redWins: 0, yellowWins: 0, draws: 0 });
+  });
+
+  it('increments the matching counter when a connect four result is recorded', () => {
+    const gameStats = TestBed.inject(GameStats);
+
+    gameStats.recordConnectFourResult('red');
+    gameStats.recordConnectFourResult('red');
+    gameStats.recordConnectFourResult('yellow');
+    gameStats.recordConnectFourResult('draw');
+
+    expect(gameStats.connectFour()).toEqual({ redWins: 2, yellowWins: 1, draws: 1 });
+  });
 });

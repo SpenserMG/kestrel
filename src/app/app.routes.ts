@@ -13,5 +13,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/games/memory-match/memory-match-page').then((m) => m.MemoryMatchPage),
   },
+  {
+    path: 'games/connect-four',
+    loadComponent: () =>
+      import('./pages/games/connect-four/connect-four-page').then((m) => m.ConnectFourPage),
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
