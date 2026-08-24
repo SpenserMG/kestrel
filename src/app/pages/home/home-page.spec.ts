@@ -17,7 +17,7 @@ describe('HomePage', () => {
 
   it('renders the welcome message', async () => {
     await harness.renderComponent();
-    expect(screen.getByText('Welcome to Kestrel')).toBeTruthy;
+    expect(screen.getByText('Welcome to Kestrel')).toBeTruthy();
   });
 
   it('has no accessibility violations', async () => {
