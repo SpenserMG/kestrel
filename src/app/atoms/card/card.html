@@ -6,6 +6,11 @@
     <mat-card-content>
       <ng-content />
     </mat-card-content>
+    <mat-card-actions align="end">
+      @if (primaryButtonText()) {
+        <button matButton="text">{{ primaryButtonText() }}</button>
+      }
+    </mat-card-actions>
   </mat-card>
 </ng-template>
 

@@ -33,4 +33,37 @@ describe('GameStats', () => {
 
     expect(second.ticTacToe()).toEqual({ xWins: 1, oWins: 0, draws: 0 });
   });
+
+  it('defaults to no memory match best moves', () => {
+    const gameStats = TestBed.inject(GameStats);
+
+    expect(gameStats.memoryMatch()).toEqual({ bestMoves: {} });
+  });
+
+  it('records a memory match win as the best score for its difficulty', () => {
+    const gameStats = TestBed.inject(GameStats);
+
+    gameStats.recordMemoryMatchWin('easy', 12);
+
+    expect(gameStats.memoryMatch()).toEqual({ bestMoves: { easy: 12 } });
+  });
+
+  it('only keeps the lower move count as the best score', () => {
+    const gameStats = TestBed.inject(GameStats);
+
+    gameStats.recordMemoryMatchWin('easy', 12);
+    gameStats.recordMemoryMatchWin('easy', 20);
+    gameStats.recordMemoryMatchWin('easy', 8);
+
+    expect(gameStats.memoryMatch()).toEqual({ bestMoves: { easy: 8 } });
+  });
+
+  it('tracks best moves independently per difficulty', () => {
+    const gameStats = TestBed.inject(GameStats);
+
+    gameStats.recordMemoryMatchWin('easy', 10);
+    gameStats.recordMemoryMatchWin('hard', 30);
+
+    expect(gameStats.memoryMatch()).toEqual({ bestMoves: { easy: 10, hard: 30 } });
+  });
 });

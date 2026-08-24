@@ -8,5 +8,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/games/tic-tac-toe/tic-tac-toe-page').then((m) => m.TicTacToePage),
   },
+  {
+    path: 'games/memory-match',
+    loadComponent: () =>
+      import('./pages/games/memory-match/memory-match-page').then((m) => m.MemoryMatchPage),
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

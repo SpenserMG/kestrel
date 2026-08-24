@@ -22,8 +22,22 @@ describe('GamesPage', () => {
     await harness.renderComponent();
 
     expect(screen.getByText('Tic-Tac-Toe')).toBeInTheDocument();
-    expect(screen.getByText('Two players, one board, no server required.')).toBeInTheDocument();
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/games/tic-tac-toe');
+    expect(screen.getByText('Simple 2-player tic-tac-toe')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Tic-Tac-Toe/ })).toHaveAttribute(
+      'href',
+      '/games/tic-tac-toe',
+    );
+  });
+
+  it('renders a tile linking to memory match', async () => {
+    await harness.renderComponent();
+
+    expect(screen.getByText('Memory Match')).toBeInTheDocument();
+    expect(screen.getByText('Flip cards to find matching pairs')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Memory Match/ })).toHaveAttribute(
+      'href',
+      '/games/memory-match',
+    );
   });
 
   it('has no accessibility violations', async () => {

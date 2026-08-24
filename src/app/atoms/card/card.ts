@@ -1,20 +1,20 @@
-import { NgTemplateOutlet, NgClass } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
-import { MatRipple } from '@angular/material/core';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle, MatCardActions } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
+import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-card',
   imports: [
     MatCard,
+    MatCardActions,
     MatCardHeader,
     MatCardTitle,
     MatCardContent,
-    MatRipple,
     NgTemplateOutlet,
     RouterLink,
-    NgClass
+    MatAnchor
 ],
   templateUrl: './card.html',
   styleUrl: './card.scss',
@@ -22,4 +22,5 @@ import { RouterLink } from '@angular/router';
 export class Card {
   readonly title = input.required<string>();
   readonly link = input<string>();
+  readonly primaryButtonText = input<string>();
 }

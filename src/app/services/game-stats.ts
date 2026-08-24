@@ -8,16 +8,28 @@ export interface TicTacToeStats {
   draws: number;
 }
 
-const STORAGE_KEY = 'kestrel.tic-tac-toe-stats';
-const EMPTY_STATS: TicTacToeStats = { xWins: 0, oWins: 0, draws: 0 };
+export type MemoryMatchDifficulty = 'easy' | 'medium' | 'hard';
+
+export interface MemoryMatchStats {
+  bestMoves: Partial<Record<MemoryMatchDifficulty, number>>;
+}
+
+const TIC_TAC_TOE_STORAGE_KEY = 'kestrel.tic-tac-toe-stats';
+const MEMORY_MATCH_STORAGE_KEY = 'kestrel.memory-match-stats';
+const EMPTY_TIC_TAC_TOE_STATS: TicTacToeStats = { xWins: 0, oWins: 0, draws: 0 };
+const EMPTY_MEMORY_MATCH_STATS: MemoryMatchStats = { bestMoves: {} };
 
 @Service()
 export class GameStats {
-  readonly ticTacToe = signal<TicTacToeStats>(this.load());
+  readonly ticTacToe = signal<TicTacToeStats>(this.loadTicTacToe());
+  readonly memoryMatch = signal<MemoryMatchStats>(this.loadMemoryMatch());
 
   constructor() {
     effect(() => {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.ticTacToe()));
+      localStorage.setItem(TIC_TAC_TOE_STORAGE_KEY, JSON.stringify(this.ticTacToe()));
+    });
+    effect(() => {
+      localStorage.setItem(MEMORY_MATCH_STORAGE_KEY, JSON.stringify(this.memoryMatch()));
     });
   }
 
@@ -29,12 +41,31 @@ export class GameStats {
     }));
   }
 
-  private load(): TicTacToeStats {
+  recordMemoryMatchWin(difficulty: MemoryMatchDifficulty, moves: number): void {
+    this.memoryMatch.update((stats) => {
+      const currentBest = stats.bestMoves[difficulty];
+      if (currentBest !== undefined && currentBest <= moves) {
+        return stats;
+      }
+      return { bestMoves: { ...stats.bestMoves, [difficulty]: moves } };
+    });
+  }
+
+  private loadTicTacToe(): TicTacToeStats {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? (JSON.parse(raw) as TicTacToeStats) : EMPTY_STATS;
+      const raw = localStorage.getItem(TIC_TAC_TOE_STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as TicTacToeStats) : EMPTY_TIC_TAC_TOE_STATS;
     } catch {
-      return EMPTY_STATS;
+      return EMPTY_TIC_TAC_TOE_STATS;
+    }
+  }
+
+  private loadMemoryMatch(): MemoryMatchStats {
+    try {
+      const raw = localStorage.getItem(MEMORY_MATCH_STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as MemoryMatchStats) : EMPTY_MEMORY_MATCH_STATS;
+    } catch {
+      return EMPTY_MEMORY_MATCH_STATS;
     }
   }
 }
