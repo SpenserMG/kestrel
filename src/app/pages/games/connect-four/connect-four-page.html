@@ -1,0 +1,42 @@
+<div class="mx-auto flex max-w-2xl flex-col items-center gap-4 p-4">
+  <h1>Connect Four</h1>
+
+  <p aria-live="polite">
+    @if (winner(); as activeWinner) {
+      {{ activeWinner === 'red' ? 'Red' : 'Yellow' }} wins!
+    } @else if (isDraw()) {
+      It's a draw!
+    } @else {
+      {{ currentPlayer() === 'red' ? 'Red' : 'Yellow' }}'s turn
+    }
+  </p>
+
+  <div class="connect-four-board">
+    @for (col of columns; track col) {
+      <button
+        type="button"
+        class="connect-four-column"
+        matRipple
+        [matRippleDisabled]="isGameOver() || isColumnFull(col)"
+        [disabled]="isGameOver() || isColumnFull(col)"
+        [attr.aria-label]="'Drop piece in column ' + (col + 1)"
+        (click)="dropPiece(col)"
+      >
+        @for (row of rows; track row) {
+          <span
+            class="connect-four-slot"
+            [class.red]="board()[row][col] === 'red'"
+            [class.yellow]="board()[row][col] === 'yellow'"
+          ></span>
+        }
+      </button>
+    }
+  </div>
+
+  <app-button label="New game" (pressed)="reset()" />
+
+  <p>
+    Red wins: {{ stats().redWins }} &middot; Yellow wins: {{ stats().yellowWins }} &middot; Draws:
+    {{ stats().draws }}
+  </p>
+</div>

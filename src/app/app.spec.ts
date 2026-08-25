@@ -22,7 +22,7 @@ describe('App', () => {
 
   it('renders a Home nav link in the side nav', async () => {
     await harness.renderComponent();
-    expect(screen.getByRole('link', { name: 'Home' })).toBeTruthy;
+    expect(screen.getByRole('link', { name: 'Home' })).toBeTruthy();
   });
 
   it('visually collapses the side nav labels when the toggle is pressed', async () => {

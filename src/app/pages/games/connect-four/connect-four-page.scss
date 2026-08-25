@@ -1,0 +1,51 @@
+.connect-four-board {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--mat-sys-primary);
+}
+
+.connect-four-column {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 100ms ease;
+
+  &:hover:not(:disabled) {
+    background: rgb(0 0 0 / 10%);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.connect-four-slot {
+  aspect-ratio: 1;
+  width: 100%;
+  border-radius: 50%;
+  background: var(--mat-sys-surface);
+  transition: background-color 150ms ease;
+
+  &.red {
+    background: #e53935;
+  }
+
+  &.yellow {
+    background: #fdd835;
+  }
+}
