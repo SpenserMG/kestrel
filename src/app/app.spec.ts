@@ -1,14 +1,24 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { provideRouter } from '@angular/router';
 import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
-import { provideRouter } from '@angular/router';
-import { expectNoA11yViolations } from './test-utils/axe';
+import { of } from 'rxjs';
 import { App } from './app';
 import { routes } from './app.routes';
+import { expectNoA11yViolations } from './test-utils/axe';
 
 class AppHarness {
-  async renderComponent() {
+  async renderComponent(overrides: Partial<{ isPhone: boolean }> = {}) {
+    const isPhone = overrides.isPhone ?? false;
+
     return render(App, {
-      providers: [provideRouter(routes)],
+      providers: [
+        provideRouter(routes),
+        {
+          provide: BreakpointObserver,
+          useValue: { observe: () => of({ matches: isPhone, breakpoints: {} }) },
+        },
+      ],
     });
   }
 }
@@ -43,6 +53,26 @@ describe('App', () => {
     const content = container.querySelector('mat-sidenav-content') as HTMLElement;
 
     expect(content.style.marginLeft).toBe('16rem');
+
+    await user.click(screen.getByRole('button', { name: 'Collapse navigation' }));
+
+    expect(content.style.marginLeft).toBe('3.5rem');
+  });
+
+  it('overlays the sidenav at full width without squeezing content on a phone-sized screen', async () => {
+    const { container } = await harness.renderComponent({ isPhone: true });
+    const sidenav = container.querySelector('mat-sidenav') as HTMLElement;
+    const content = container.querySelector('mat-sidenav-content') as HTMLElement;
+
+    expect(sidenav).toHaveClass('mat-drawer-over');
+    expect(sidenav.style.getPropertyValue('--mat-sidenav-container-width')).toBe('100%');
+    expect(content.style.marginLeft).toBe('0px');
+  });
+
+  it('switches back to pushing content once the phone-width nav is collapsed', async () => {
+    const user = userEvent.setup();
+    const { container } = await harness.renderComponent({ isPhone: true });
+    const content = container.querySelector('mat-sidenav-content') as HTMLElement;
 
     await user.click(screen.getByRole('button', { name: 'Collapse navigation' }));
 

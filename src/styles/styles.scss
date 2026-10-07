@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  font-family: Quicksand;
+  font-family: Archivo;
 }
 
 // Angular Material bundles secondary/neutral/neutral-variant/error as nested
@@ -78,19 +78,18 @@ $_primary-palette: map.merge(
   --bird-fill-dark-theme: #{map.get(palette.$neutral, 96)};
 
   /* core typography tokens are not generating css variables, hence below */
-  --mat-sys-brand-font-family: Quicksand;
-  --mat-sys-plain-font-family: Quicksand;
-  --mat-sys-bold-font-weight: 700;
+  --mat-sys-brand-font-family: Archivo Black;
+  --mat-sys-plain-font-family: Archivo;
+  --mat-sys-bold-font-weight: 600;
   --mat-sys-medium-font-weight: 500;
   --mat-sys-regular-font-weight: 400;
 
-  @include mat.theme-overrides(
-    (
-      brand-family: Quicksand,
-      plain-family: Quicksand,
-      bold-weight: 700,
-      medium-weight: 500,
-      regular-weight: 400,
+  @include mat.theme-overrides((
+    brand-family: Archivo Black,
+    plain-family: Archivo,
+    bold-weight: 700,
+    medium-weight: 500,
+    regular-weight: 400,
       headline-large-font: var(--mat-sys-brand-font-family),
       headline-medium-font: var(--mat-sys-brand-font-family),
       headline-small-font: var(--mat-sys-brand-font-family),

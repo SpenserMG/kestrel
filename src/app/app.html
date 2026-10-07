@@ -3,7 +3,7 @@
   <mat-sidenav-container class="flex-1">
     <mat-sidenav
       class="app-sidenav"
-      mode="side"
+      [mode]="sidenavMode()"
       opened
       [style.--mat-sidenav-container-width]="navWidth()"
     >
@@ -16,16 +16,16 @@
       </div>
       <mat-nav-list>
         <a mat-list-item routerLink="/home">
-          <app-icon matListItemIcon name="home" />
-          <span [class.sr-only]="navCollapsed()">Home</span>
+          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="home" />
+          <span class="flex justify-center" [class.sr-only]="navCollapsed()">Home</span>
         </a>
         <a mat-list-item routerLink="/games">
-          <app-icon matListItemIcon name="stadia_controller" />
-          <span [class.sr-only]="navCollapsed()">Games</span>
+          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="stadia_controller" />
+          <span class="flex justify-center" [class.sr-only]="navCollapsed()">Games</span>
         </a>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content [style.margin-left]="navWidth()">
+    <mat-sidenav-content [style.margin-left]="contentMargin()">
       <router-outlet />
     </mat-sidenav-content>
   </mat-sidenav-container>

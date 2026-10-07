@@ -1,0 +1,27 @@
+<section class="coffee-ticker" aria-label="Coffee suggestions">
+  <div class="coffee-ticker-label">Coffee you should try</div>
+
+  <div class="coffee-ticker-track">
+    <div class="coffee-ticker-content" [class.paused]="isPaused()" aria-hidden="true">
+      @for (coffee of coffees; track $index) {
+        <span class="coffee-ticker-item">{{ coffee }}</span>
+      }
+      @for (coffee of coffees; track $index) {
+        <span class="coffee-ticker-item">{{ coffee }}</span>
+      }
+    </div>
+  </div>
+
+  <ul class="sr-only">
+    @for (coffee of coffees; track $index) {
+      <li>{{ coffee }}</li>
+    }
+  </ul>
+
+  <app-icon-button
+    class="coffee-ticker-toggle"
+    [icon]="isPaused() ? 'play_arrow' : 'pause'"
+    [label]="isPaused() ? 'Resume scrolling coffee list' : 'Pause scrolling coffee list'"
+    (pressed)="togglePause()"
+  />
+</section>
