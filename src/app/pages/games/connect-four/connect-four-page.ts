@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
-import { GameStats } from '../../../services/game-stats';
+import { GameStatsService } from '../../../services/game-stats.service';
 
 type Player = 'red' | 'yellow';
 type Cell = Player | null;
@@ -57,7 +57,7 @@ function computeWinner(board: Cell[][]): Player | null {
   styleUrl: './connect-four-page.scss',
 })
 export class ConnectFourPage {
-  private readonly gameStats = inject(GameStats);
+  private readonly gameStats = inject(GameStatsService);
 
   readonly columns = Array.from({ length: COLS }, (_, i) => i);
   readonly rows = Array.from({ length: ROWS }, (_, i) => i);

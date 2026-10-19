@@ -3,18 +3,18 @@
 
   <div class="coffee-ticker-track">
     <div class="coffee-ticker-content" [class.paused]="isPaused()" aria-hidden="true">
-      @for (coffee of coffees; track $index) {
-        <span class="coffee-ticker-item">{{ coffee }}</span>
+      @for (coffee of coffees(); track coffee.name) {
+        <span class="coffee-ticker-item">{{ coffee.roaster }} — {{ coffee.name }}</span>
       }
-      @for (coffee of coffees; track $index) {
-        <span class="coffee-ticker-item">{{ coffee }}</span>
+      @for (coffee of coffees(); track coffee.name) {
+        <span class="coffee-ticker-item">{{ coffee.roaster }} — {{ coffee.name }}</span>
       }
     </div>
   </div>
 
   <ul class="sr-only">
-    @for (coffee of coffees; track $index) {
-      <li>{{ coffee }}</li>
+    @for (coffee of coffees(); track coffee.name) {
+      <li>{{ coffee.roaster }}, {{ coffee.name }}</li>
     }
   </ul>
 

@@ -1,10 +1,14 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { render, screen } from '@testing-library/angular';
 import { expectNoA11yViolations } from '../../test-utils/axe';
 import { HomePage } from './home-page';
 
 class HomePageHarness {
   async renderComponent() {
-    return render(HomePage);
+    return render(HomePage, {
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
   }
 }
 

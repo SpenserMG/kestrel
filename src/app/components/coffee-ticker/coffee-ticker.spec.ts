@@ -1,11 +1,29 @@
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
 import { CoffeeTicker } from './coffee-ticker';
+import { Coffee } from '../../services/coffee.service';
 import { expectNoA11yViolations } from '../../test-utils/axe';
+
+const MOCK_COFFEES: Coffee[] = [
+  { roaster: 'Passenger Coffee and Tea', name: 'Ethiopian Yirgacheffe' },
+  { roaster: 'Olympia Coffee', name: 'Panama Geisha' },
+];
 
 class CoffeeTickerHarness {
   async renderComponent() {
-    return render(CoffeeTicker);
+    const result = await render(CoffeeTicker, {
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+
+    const httpMock = TestBed.inject(HttpTestingController);
+    httpMock.expectOne('/api/coffees').flush(MOCK_COFFEES);
+    await result.fixture.whenStable();
+    result.fixture.detectChanges();
+
+    return result;
   }
 }
 
@@ -14,6 +32,10 @@ describe('CoffeeTicker', () => {
 
   beforeEach(() => {
     harness = new CoffeeTickerHarness();
+  });
+
+  afterEach(() => {
+    TestBed.inject(HttpTestingController).verify();
   });
 
   it('renders the fixed label', async () => {
@@ -34,7 +56,9 @@ describe('CoffeeTicker', () => {
     const toggle = screen.getByRole('button', { name: 'Pause scrolling coffee list' });
     await user.click(toggle);
 
-    expect(screen.getByRole('button', { name: 'Resume scrolling coffee list' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Resume scrolling coffee list' }),
+    ).toBeInTheDocument();
   });
 
   it('has no accessibility violations', async () => {

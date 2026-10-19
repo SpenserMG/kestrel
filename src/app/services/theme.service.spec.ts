@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { Theme } from './theme';
+import { ThemeService } from './theme.service';
 
-describe('Theme', () => {
+describe('ThemeService', () => {
   beforeEach(() => {
     document.documentElement.className = '';
     localStorage.clear();
   });
 
   it('defaults to light-theme and applies it to the document root', () => {
-    const theme = TestBed.inject(Theme);
+    const theme = TestBed.inject(ThemeService);
     TestBed.tick();
 
     expect(theme.current()).toBe('light-theme');
@@ -16,7 +16,7 @@ describe('Theme', () => {
   });
 
   it('switches the document root class when setTheme is called', () => {
-    const theme = TestBed.inject(Theme);
+    const theme = TestBed.inject(ThemeService);
 
     theme.setTheme('dark-theme');
     TestBed.tick();
@@ -27,7 +27,7 @@ describe('Theme', () => {
   });
 
   it('persists the selected theme to localStorage', () => {
-    const theme = TestBed.inject(Theme);
+    const theme = TestBed.inject(ThemeService);
 
     theme.setTheme('dark-theme');
 
@@ -37,7 +37,7 @@ describe('Theme', () => {
   it('restores the previously stored theme on init', () => {
     localStorage.setItem('kestrel-theme', 'dark-theme');
 
-    const theme = TestBed.inject(Theme);
+    const theme = TestBed.inject(ThemeService);
     TestBed.tick();
 
     expect(theme.current()).toBe('dark-theme');
@@ -47,7 +47,7 @@ describe('Theme', () => {
   it('falls back to the default theme when localStorage holds an invalid value', () => {
     localStorage.setItem('kestrel-theme', 'not-a-real-theme');
 
-    const theme = TestBed.inject(Theme);
+    const theme = TestBed.inject(ThemeService);
     TestBed.tick();
 
     expect(theme.current()).toBe('light-theme');

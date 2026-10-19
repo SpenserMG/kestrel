@@ -1,4 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
@@ -14,6 +16,8 @@ class AppHarness {
     return render(App, {
       providers: [
         provideRouter(routes),
+        provideHttpClient(),
+        provideHttpClientTesting(),
         {
           provide: BreakpointObserver,
           useValue: { observe: () => of({ matches: isPhone, breakpoints: {} }) },

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/angular';
 import { userEvent } from '@testing-library/user-event';
 import { TestBed } from '@angular/core/testing';
 import { ThemeSwitcher } from './theme-switcher';
-import { Theme } from '../../services/theme';
+import { ThemeService } from '../../services/theme.service';
 import { expectNoA11yViolations } from '../../test-utils/axe';
 
 class ThemeSwitcherHarness {
@@ -32,7 +32,7 @@ describe('ThemeSwitcher', () => {
   it('switches the active theme when a different option is chosen', async () => {
     const user = userEvent.setup();
     await harness.renderComponent();
-    const theme = TestBed.inject(Theme);
+    const theme = TestBed.inject(ThemeService);
     const combobox = screen.getByRole('combobox', { name: 'Theme' });
     const trigger = combobox.querySelector('.mat-mdc-select-trigger') as HTMLElement;
 

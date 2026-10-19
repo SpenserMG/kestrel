@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Select, SelectOption } from '../../atoms/select/select';
-import { Theme, ThemeName } from '../../services/theme';
+import { ThemeName, ThemeService } from '../../services/theme.service';
 
 const THEME_OPTIONS: SelectOption[] = [
   { value: 'light-theme', label: 'Light Theme', icon: 'sun' },
@@ -15,7 +15,7 @@ const THEME_OPTIONS: SelectOption[] = [
   styleUrl: './theme-switcher.scss',
 })
 export class ThemeSwitcher {
-  protected readonly theme = inject(Theme);
+  protected readonly theme = inject(ThemeService);
   protected readonly options = THEME_OPTIONS;
   readonly appearance = input<MatFormFieldAppearance>('fill');
 

@@ -105,6 +105,7 @@ export class Button {
 - Use the `providedIn: 'root'` option for singleton services
 - Prefer the `@Service` decorator over `@Injectable({providedIn: 'root'})` for new singleton services (Angular v22+)
 - Use the `inject()` function instead of constructor injection
+- Every service class name and filename must include `Service`/`.service` — class `CoffeeService`, file `coffee.service.ts`. This applies regardless of the `@Service`/`@Injectable` decorator choice above.
 
 ## Testing
 

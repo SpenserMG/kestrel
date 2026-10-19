@@ -30,7 +30,7 @@ const EMPTY_MEMORY_MATCH_STATS: MemoryMatchStats = { bestMoves: {} };
 const EMPTY_CONNECT_FOUR_STATS: ConnectFourStats = { redWins: 0, yellowWins: 0, draws: 0 };
 
 @Service()
-export class GameStats {
+export class GameStatsService {
   readonly ticTacToe = signal<TicTacToeStats>(this.loadTicTacToe());
   readonly memoryMatch = signal<MemoryMatchStats>(this.loadMemoryMatch());
   readonly connectFour = signal<ConnectFourStats>(this.loadConnectFour());

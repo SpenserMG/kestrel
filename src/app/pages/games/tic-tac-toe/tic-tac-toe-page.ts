@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
-import { GameStats } from '../../../services/game-stats';
+import { GameStatsService } from '../../../services/game-stats.service';
 
 type Player = 'X' | 'O';
 type Cell = Player | null;
@@ -24,7 +24,7 @@ const WIN_LINES: readonly (readonly [number, number, number])[] = [
   styleUrl: './tic-tac-toe-page.scss',
 })
 export class TicTacToePage {
-  private readonly gameStats = inject(GameStats);
+  private readonly gameStats = inject(GameStatsService);
 
   readonly board = signal<Cell[]>(Array(9).fill(null));
   readonly currentPlayer = signal<Player>('X');

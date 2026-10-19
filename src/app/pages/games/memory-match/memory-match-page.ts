@@ -3,7 +3,7 @@ import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
 import { Icon } from '../../../atoms/icon/icon';
 import { Select, SelectOption } from '../../../atoms/select/select';
-import { GameStats, MemoryMatchDifficulty } from '../../../services/game-stats';
+import { GameStatsService, MemoryMatchDifficulty } from '../../../services/game-stats.service';
 
 interface MemoryCard {
   id: number;
@@ -59,7 +59,7 @@ function buildDeck(pairs: number): MemoryCard[] {
   styleUrl: './memory-match-page.scss',
 })
 export class MemoryMatchPage {
-  private readonly gameStats = inject(GameStats);
+  private readonly gameStats = inject(GameStatsService);
 
   readonly difficultyOptions = DIFFICULTY_OPTIONS;
   readonly difficulty = signal<MemoryMatchDifficulty>('easy');

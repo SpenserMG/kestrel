@@ -1,19 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { IconButton } from '../../atoms/icon-button/icon-button';
-
-const COFFEES: readonly string[] = [
-  'Passenger Coffee and Tea',
-  'Necessary Coffee Roasters',
-  'Commonplace Coffee',
-  'Espresso a Mano',
-  'Olympia Coffee',
-  'Press House Coffee',
-  'Mechanic Coffee',
-  'Onyx Coffee',
-  'La Prima Coffee',
-  'Hyperion Coffee',
-  'Square One'
-];
+import { CoffeeService } from '../../services/coffee.service';
 
 @Component({
   selector: 'app-coffee-ticker',
@@ -22,7 +9,9 @@ const COFFEES: readonly string[] = [
   styleUrl: './coffee-ticker.scss',
 })
 export class CoffeeTicker {
-  readonly coffees = COFFEES;
+  private readonly coffeeService = inject(CoffeeService);
+
+  readonly coffees = this.coffeeService.coffees.value;
   readonly isPaused = signal(false);
 
   togglePause(): void {

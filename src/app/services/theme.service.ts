@@ -12,7 +12,7 @@ function isThemeName(value: string | null): value is ThemeName {
 }
 
 @Service()
-export class Theme {
+export class ThemeService {
   private readonly document = inject(DOCUMENT);
 
   readonly current = signal<ThemeName>(this.readStoredTheme() ?? DEFAULT_THEME);
