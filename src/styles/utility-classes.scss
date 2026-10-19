@@ -1,3 +1,15 @@
 .font-body-quicksand {
   font-family: Quicksand;
 }
+
+// Diagonal ombré wash between the opposing ends of the M3 neutral ramp
+// (surface-dim/surface-bright) rather than a chromatic role, for a subtler
+// effect. on-surface stays readable against both ends in either theme.
+.bg-ombre {
+  background: linear-gradient(
+    135deg,
+    var(--mat-sys-surface-dim) 0%,
+    var(--mat-sys-surface-bright) 100%
+  );
+  color: var(--mat-sys-on-surface);
+}

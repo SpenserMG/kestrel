@@ -65,6 +65,7 @@ $_primary-palette: map.merge(
       (
         container-background-color: var(--mat-sys-surface-container-low),
         container-divider-color: var(--mat-sys-outline-variant),
+        container-shape: 0,
       )
     );
   }

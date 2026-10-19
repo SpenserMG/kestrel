@@ -28,13 +28,15 @@
         [matRippleDisabled]="isResolving() || matchedIds().has(card.id)"
         [class.matched]="matchedIds().has(card.id)"
         [disabled]="isResolving() || matchedIds().has(card.id)"
-        [attr.aria-label]="isFaceUp(i) ? card.symbol + ' card, matched' : 'Card ' + (i + 1) + ', face down'"
+        [attr.aria-label]="
+          isFaceUp(i) ? card.symbol + ' card, matched' : 'Card ' + (i + 1) + ', face down'
+        "
         (click)="flipCard(i)"
       >
         @if (isFaceUp(i)) {
           <app-icon [name]="card.symbol" />
         } @else {
-          <app-icon name="help" />
+          <app-icon name="help-circle" />
         }
       </button>
     }

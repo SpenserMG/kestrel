@@ -62,7 +62,7 @@ describe('MemoryMatchPage', () => {
     const page = fixture.componentInstance;
     page.cards.set([
       { id: 0, symbol: 'star' },
-      { id: 1, symbol: 'pets' },
+      { id: 1, symbol: 'paw-print' },
     ]);
     fixture.detectChanges();
 

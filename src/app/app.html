@@ -9,7 +9,7 @@
     >
       <div class="flex justify-end p-1">
         <app-icon-button
-          [icon]="navCollapsed() ? 'chevron_right' : 'chevron_left'"
+          [icon]="navCollapsed() ? 'chevron-right' : 'chevron-left'"
           [label]="navCollapsed() ? 'Expand navigation' : 'Collapse navigation'"
           (pressed)="toggleNav()"
         />
@@ -20,7 +20,7 @@
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Home</span>
         </a>
         <a mat-list-item routerLink="/games">
-          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="stadia_controller" />
+          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="gamepad-2" />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Games</span>
         </a>
       </mat-nav-list>

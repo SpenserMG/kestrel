@@ -4,8 +4,8 @@ import { Select, SelectOption } from '../../atoms/select/select';
 import { Theme, ThemeName } from '../../services/theme';
 
 const THEME_OPTIONS: SelectOption[] = [
-  { value: 'light-theme', label: 'Light Theme', icon: 'light_mode' },
-  { value: 'dark-theme', label: 'Dark Theme', icon: 'dark_mode' },
+  { value: 'light-theme', label: 'Light Theme', icon: 'sun' },
+  { value: 'dark-theme', label: 'Dark Theme', icon: 'moon' },
 ];
 
 @Component({

@@ -26,16 +26,16 @@ const DIFFICULTY_OPTIONS: SelectOption[] = (
 ).map(([value, config]) => ({ value, label: config.label }));
 
 const SYMBOL_POOL = [
-  'favorite',
+  'heart',
   'star',
-  'pets',
+  'paw-print',
   'cake',
-  'bolt',
+  'zap',
   'anchor',
   'diamond',
-  'spa',
+  'flower-2',
   'umbrella',
-  'rocket_launch',
+  'rocket',
 ];
 
 const MISMATCH_DELAY_MS = 800;

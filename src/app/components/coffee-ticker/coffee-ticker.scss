@@ -32,7 +32,7 @@
 .coffee-ticker-content {
   display: flex;
   width: max-content;
-  animation: coffee-ticker-scroll 24s linear infinite;
+  animation: coffee-ticker-scroll 36s linear infinite;
 
   &.paused {
     animation-play-state: paused;

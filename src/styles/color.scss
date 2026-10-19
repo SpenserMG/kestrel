@@ -1,0 +1,100 @@
+// Flat, individually-addressable variables for every tone of every palette
+// in color-palette.scss (e.g. $primary-40), sourced via map.get() so they
+// stay in sync if that file is regenerated with new base hexes.
+@use 'sass:map';
+@use './color-palette' as palette;
+
+$primary-0: map.get(palette.$primary, 0);
+$primary-10: map.get(palette.$primary, 10);
+$primary-20: map.get(palette.$primary, 20);
+$primary-30: map.get(palette.$primary, 30);
+$primary-40: map.get(palette.$primary, 40);
+$primary-50: map.get(palette.$primary, 50);
+$primary-60: map.get(palette.$primary, 60);
+$primary-70: map.get(palette.$primary, 70);
+$primary-80: map.get(palette.$primary, 80);
+$primary-90: map.get(palette.$primary, 90);
+$primary-95: map.get(palette.$primary, 95);
+$primary-99: map.get(palette.$primary, 99);
+$primary-100: map.get(palette.$primary, 100);
+
+$secondary-0: map.get(palette.$secondary, 0);
+$secondary-10: map.get(palette.$secondary, 10);
+$secondary-20: map.get(palette.$secondary, 20);
+$secondary-30: map.get(palette.$secondary, 30);
+$secondary-40: map.get(palette.$secondary, 40);
+$secondary-50: map.get(palette.$secondary, 50);
+$secondary-60: map.get(palette.$secondary, 60);
+$secondary-70: map.get(palette.$secondary, 70);
+$secondary-80: map.get(palette.$secondary, 80);
+$secondary-90: map.get(palette.$secondary, 90);
+$secondary-95: map.get(palette.$secondary, 95);
+$secondary-99: map.get(palette.$secondary, 99);
+$secondary-100: map.get(palette.$secondary, 100);
+
+$tertiary-0: map.get(palette.$tertiary, 0);
+$tertiary-10: map.get(palette.$tertiary, 10);
+$tertiary-20: map.get(palette.$tertiary, 20);
+$tertiary-30: map.get(palette.$tertiary, 30);
+$tertiary-40: map.get(palette.$tertiary, 40);
+$tertiary-50: map.get(palette.$tertiary, 50);
+$tertiary-60: map.get(palette.$tertiary, 60);
+$tertiary-70: map.get(palette.$tertiary, 70);
+$tertiary-80: map.get(palette.$tertiary, 80);
+$tertiary-90: map.get(palette.$tertiary, 90);
+$tertiary-95: map.get(palette.$tertiary, 95);
+$tertiary-99: map.get(palette.$tertiary, 99);
+$tertiary-100: map.get(palette.$tertiary, 100);
+
+$neutral-0: map.get(palette.$neutral, 0);
+$neutral-4: map.get(palette.$neutral, 4);
+$neutral-6: map.get(palette.$neutral, 6);
+$neutral-10: map.get(palette.$neutral, 10);
+$neutral-12: map.get(palette.$neutral, 12);
+$neutral-17: map.get(palette.$neutral, 17);
+$neutral-20: map.get(palette.$neutral, 20);
+$neutral-22: map.get(palette.$neutral, 22);
+$neutral-24: map.get(palette.$neutral, 24);
+$neutral-30: map.get(palette.$neutral, 30);
+$neutral-40: map.get(palette.$neutral, 40);
+$neutral-50: map.get(palette.$neutral, 50);
+$neutral-60: map.get(palette.$neutral, 60);
+$neutral-70: map.get(palette.$neutral, 70);
+$neutral-80: map.get(palette.$neutral, 80);
+$neutral-87: map.get(palette.$neutral, 87);
+$neutral-90: map.get(palette.$neutral, 90);
+$neutral-92: map.get(palette.$neutral, 92);
+$neutral-94: map.get(palette.$neutral, 94);
+$neutral-95: map.get(palette.$neutral, 95);
+$neutral-96: map.get(palette.$neutral, 96);
+$neutral-98: map.get(palette.$neutral, 98);
+$neutral-99: map.get(palette.$neutral, 99);
+$neutral-100: map.get(palette.$neutral, 100);
+
+$neutral-variant-0: map.get(palette.$neutral-variant, 0);
+$neutral-variant-10: map.get(palette.$neutral-variant, 10);
+$neutral-variant-20: map.get(palette.$neutral-variant, 20);
+$neutral-variant-30: map.get(palette.$neutral-variant, 30);
+$neutral-variant-40: map.get(palette.$neutral-variant, 40);
+$neutral-variant-50: map.get(palette.$neutral-variant, 50);
+$neutral-variant-60: map.get(palette.$neutral-variant, 60);
+$neutral-variant-70: map.get(palette.$neutral-variant, 70);
+$neutral-variant-80: map.get(palette.$neutral-variant, 80);
+$neutral-variant-90: map.get(palette.$neutral-variant, 90);
+$neutral-variant-95: map.get(palette.$neutral-variant, 95);
+$neutral-variant-99: map.get(palette.$neutral-variant, 99);
+$neutral-variant-100: map.get(palette.$neutral-variant, 100);
+
+$error-0: map.get(palette.$error, 0);
+$error-10: map.get(palette.$error, 10);
+$error-20: map.get(palette.$error, 20);
+$error-30: map.get(palette.$error, 30);
+$error-40: map.get(palette.$error, 40);
+$error-50: map.get(palette.$error, 50);
+$error-60: map.get(palette.$error, 60);
+$error-70: map.get(palette.$error, 70);
+$error-80: map.get(palette.$error, 80);
+$error-90: map.get(palette.$error, 90);
+$error-95: map.get(palette.$error, 95);
+$error-99: map.get(palette.$error, 99);
+$error-100: map.get(palette.$error, 100);

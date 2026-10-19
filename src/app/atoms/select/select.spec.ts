@@ -5,7 +5,7 @@ import { expectNoA11yViolations } from '../../test-utils/axe';
 
 const FRUIT_OPTIONS: SelectOption[] = [
   { value: 'apple', label: 'Apple' },
-  { value: 'pear', label: 'Pear', icon: 'eco' },
+  { value: 'pear', label: 'Pear', icon: 'leaf' },
 ];
 
 class SelectHarness {
@@ -39,7 +39,7 @@ describe('Select', () => {
     expect(screen.getByRole('combobox', { name: 'Fruit' })).toHaveTextContent('Apple');
   });
 
-  it('shows the selected option\'s icon in the closed trigger', async () => {
+  it("shows the selected option's icon in the closed trigger", async () => {
     const { fixture, container } = await render(Select, {
       inputs: { label: 'Fruit', options: FRUIT_OPTIONS, value: 'pear' },
     });
@@ -49,7 +49,7 @@ describe('Select', () => {
 
     const combobox = screen.getByRole('combobox', { name: 'Fruit' });
     expect(combobox).toHaveTextContent('Pear');
-    expect(container.querySelector('mat-icon')?.textContent?.trim()).toBe('eco');
+    expect(container.querySelector('svg.lucide-leaf')).toBeInTheDocument();
   });
 
   it('opens the panel and updates the value when a different option is chosen', async () => {
