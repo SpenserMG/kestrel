@@ -3,11 +3,12 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { mockCoffeesInterceptor } from './interceptors/mock-coffees.interceptor';
+import { mockCountriesInterceptor } from './interceptors/mock-countries.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withFetch(), withInterceptors([mockCoffeesInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([mockCoffeesInterceptor, mockCountriesInterceptor])),
   ],
 };

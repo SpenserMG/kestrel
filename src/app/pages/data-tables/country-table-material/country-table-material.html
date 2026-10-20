@@ -1,0 +1,60 @@
+<div class="country-table-material">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="flagEmoji">
+      <th mat-header-cell *matHeaderCellDef>Flag</th>
+      <td mat-cell *matCellDef="let country" [attr.aria-label]="country.commonName + ' flag'">
+        {{ country.flagEmoji }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="commonName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let country">{{ country.commonName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="region">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Region</th>
+      <td mat-cell *matCellDef="let country">{{ country.region }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="subregion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Subregion</th>
+      <td mat-cell *matCellDef="let country">{{ country.subregion }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="population">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Population</th>
+      <td mat-cell *matCellDef="let country">{{ country.population.toLocaleString() }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="areaKm2">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Area (km&sup2;)</th>
+      <td mat-cell *matCellDef="let country">{{ country.areaKm2.toLocaleString() }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="capital">
+      <th mat-header-cell *matHeaderCellDef>Capital</th>
+      <td mat-cell *matCellDef="let country">{{ country.capital }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="languages">
+      <th mat-header-cell *matHeaderCellDef>Languages</th>
+      <td mat-cell *matCellDef="let country">{{ country.languages }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="currencies">
+      <th mat-header-cell *matHeaderCellDef>Currencies</th>
+      <td mat-cell *matCellDef="let country">{{ country.currencies }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="unMember">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>UN Member</th>
+      <td mat-cell *matCellDef="let country">{{ country.unMember ? 'Yes' : 'No' }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 25, 50]" [pageSize]="10" showFirstLastButtons />
+</div>

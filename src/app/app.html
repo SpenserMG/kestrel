@@ -23,6 +23,10 @@
           <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="gamepad-2" />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Games</span>
         </a>
+        <a mat-list-item routerLink="/data-tables">
+          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="table" />
+          <span class="flex justify-center" [class.sr-only]="navCollapsed()">Data Tables</span>
+        </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content [style.margin-left]="contentMargin()">

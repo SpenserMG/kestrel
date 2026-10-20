@@ -1,0 +1,35 @@
+<div class="mx-auto flex max-w-6xl flex-col gap-4 p-4">
+  <h1>Data Tables</h1>
+
+  <p>
+    The same live country directory, rendered three different ways. Switch implementations to
+    compare how each one handles sorting, pagination, and styling.
+  </p>
+
+  <app-select
+    label="Table implementation"
+    [options]="implementationOptions"
+    [value]="implementation()"
+    (valueChange)="selectImplementation($event)"
+  />
+
+  <div aria-live="polite">
+    @if (isLoading()) {
+      <p>Loading countries&hellip;</p>
+    } @else if (error()) {
+      <p>Couldn't load country data. Please try again later.</p>
+    }
+  </div>
+
+  @switch (implementation()) {
+    @case ('material') {
+      <app-country-table-material [countries]="countries()" />
+    }
+    @case ('ag-grid') {
+      <app-country-table-ag-grid [countries]="countries()" />
+    }
+    @case ('tanstack') {
+      <app-country-table-tanstack [countries]="countries()" />
+    }
+  }
+</div>
