@@ -3,6 +3,7 @@ import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
 import { Icon } from '../../../atoms/icon/icon';
 import { Select, SelectOption } from '../../../atoms/select/select';
+import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService, MemoryMatchDifficulty } from '../../../services/game-stats.service';
 
 interface MemoryCard {
@@ -58,7 +59,7 @@ function buildDeck(pairs: number): MemoryCard[] {
   templateUrl: './memory-match-page.html',
   styleUrl: './memory-match-page.scss',
 })
-export class MemoryMatchPage {
+export class MemoryMatchPage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
 
   readonly difficultyOptions = DIFFICULTY_OPTIONS;
@@ -126,5 +127,9 @@ export class MemoryMatchPage {
       this.flippedIndices.set([]);
       this.isResolving.set(false);
     }, MISMATCH_DELAY_MS);
+  }
+
+  hasUnsavedProgress(): boolean {
+    return !this.isWon() && (this.moves() > 0 || this.flippedIndices().length > 0);
   }
 }

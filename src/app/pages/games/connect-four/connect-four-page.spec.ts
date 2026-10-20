@@ -78,6 +78,25 @@ describe('ConnectFourPage', () => {
     expect(harness.columnButton(1)).toBeEnabled();
   });
 
+  it('reports unsaved progress once a piece is dropped, and none once the game ends', async () => {
+    const { fixture } = await harness.renderComponent();
+    const page = fixture.componentInstance;
+
+    expect(page.hasUnsavedProgress()).toBe(false);
+
+    await user.click(harness.columnButton(1)); // red
+    expect(page.hasUnsavedProgress()).toBe(true);
+
+    await user.click(harness.columnButton(2)); // yellow
+    await user.click(harness.columnButton(1)); // red
+    await user.click(harness.columnButton(2)); // yellow
+    await user.click(harness.columnButton(1)); // red
+    await user.click(harness.columnButton(2)); // yellow
+    await user.click(harness.columnButton(1)); // red - 4 in a row vertically
+
+    expect(page.hasUnsavedProgress()).toBe(false);
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = await harness.renderComponent();
     await expectNoA11yViolations(container);

@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
+import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService } from '../../../services/game-stats.service';
 
 type Player = 'X' | 'O';
@@ -23,7 +24,7 @@ const WIN_LINES: readonly (readonly [number, number, number])[] = [
   templateUrl: './tic-tac-toe-page.html',
   styleUrl: './tic-tac-toe-page.scss',
 })
-export class TicTacToePage {
+export class TicTacToePage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
 
   readonly board = signal<Cell[]>(Array(9).fill(null));
@@ -69,5 +70,9 @@ export class TicTacToePage {
   reset(): void {
     this.board.set(Array(9).fill(null));
     this.currentPlayer.set('X');
+  }
+
+  hasUnsavedProgress(): boolean {
+    return !this.isGameOver() && this.board().some((cell) => cell !== null);
   }
 }

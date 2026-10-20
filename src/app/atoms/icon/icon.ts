@@ -2,10 +2,12 @@ import { Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   Anchor,
+  Bomb,
   Cake,
   ChevronLeft,
   ChevronRight,
   Diamond,
+  Flag,
   Flower2,
   Gamepad2,
   Heart,
@@ -20,16 +22,19 @@ import {
   Rocket,
   Star,
   Sun,
+  Timer,
   Umbrella,
   Zap,
 } from 'lucide-static';
 
 const ICONS: Record<string, string> = {
   anchor: Anchor,
+  bomb: Bomb,
   cake: Cake,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
   diamond: Diamond,
+  flag: Flag,
   'flower-2': Flower2,
   'gamepad-2': Gamepad2,
   heart: Heart,
@@ -44,6 +49,7 @@ const ICONS: Record<string, string> = {
   rocket: Rocket,
   star: Star,
   sun: Sun,
+  timer: Timer,
   umbrella: Umbrella,
   zap: Zap,
 };

@@ -1,0 +1,78 @@
+<div class="mx-auto flex max-w-2xl flex-col items-center gap-4 p-4">
+  <h1>Minesweeper</h1>
+
+  <app-select
+    label="Difficulty"
+    [options]="difficultyOptions"
+    [value]="difficulty()"
+    (valueChange)="selectDifficulty($event)"
+  />
+
+  <p aria-live="polite">
+    @if (isWon()) {
+      You win! Solved in {{ elapsedSeconds() }}s.
+    } @else if (isLost()) {
+      Boom — you hit a mine.
+    } @else {
+      Mines remaining: {{ minesRemaining() }}
+    }
+  </p>
+
+  <div class="flex flex-wrap items-center justify-center gap-4">
+    <app-button label="New game" (pressed)="newGame()" />
+    <app-button
+      [label]="flagMode() ? 'Flagging: On' : 'Flagging: Off'"
+      variant="outlined"
+      (pressed)="toggleFlagMode()"
+    />
+    <p class="flex items-center gap-1"><app-icon name="timer" /> {{ elapsedSeconds() }}s</p>
+  </div>
+
+  <div
+    class="minesweeper-board"
+    [style.grid-template-columns]="'repeat(' + board()[0].length + ', minmax(0, 1fr))'"
+  >
+    @for (row of board(); track $index; let r = $index) {
+      @for (cell of row; track $index; let c = $index) {
+        <button
+          type="button"
+          class="minesweeper-cell"
+          matRipple
+          [matRippleDisabled]="isGameOver() || cell.isRevealed"
+          [disabled]="isGameOver() || cell.isRevealed"
+          [class.revealed]="cell.isRevealed"
+          [attr.data-count]="cell.isRevealed && !cell.isMine ? cell.adjacentMines : null"
+          [attr.aria-label]="
+            cell.isFlagged && !cell.isRevealed
+              ? 'Row ' + (r + 1) + ', column ' + (c + 1) + ', flagged'
+              : cell.isRevealed
+                ? cell.isMine
+                  ? 'Row ' + (r + 1) + ', column ' + (c + 1) + ', mine'
+                  : 'Row ' +
+                    (r + 1) +
+                    ', column ' +
+                    (c + 1) +
+                    ', revealed, ' +
+                    cell.adjacentMines +
+                    ' adjacent mines'
+                : 'Row ' + (r + 1) + ', column ' + (c + 1) + ', hidden'
+          "
+          (click)="selectCell(r, c)"
+          (contextmenu)="toggleFlag(r, c, $event)"
+        >
+          @if (cell.isFlagged && !cell.isRevealed) {
+            <app-icon name="flag" />
+          } @else if (cell.isRevealed && cell.isMine) {
+            <app-icon name="bomb" />
+          } @else if (cell.isRevealed && cell.adjacentMines > 0) {
+            {{ cell.adjacentMines }}
+          }
+        </button>
+      }
+    }
+  </div>
+
+  @if (stats().bestTimeSeconds[difficulty()]; as best) {
+    <p>Best for {{ difficulty() }}: {{ best }}s</p>
+  }
+</div>

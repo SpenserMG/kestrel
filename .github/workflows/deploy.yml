@@ -1,0 +1,81 @@
+# Builds Kestrel and deploys it to GitHub Pages.
+#
+# Started from GitHub's default "CI" starter workflow, extended with real
+# build/test/lint steps and a deploy job using the actions/*-pages actions.
+
+name: Deploy to GitHub Pages
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time; don't cancel one that's already running
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # Builds the app and verifies it (lint + tests) on every push and PR
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm test -- --watch=false
+
+      # /kestrel/ matches this repo's GitHub Pages project-page URL
+      # (https://spensermg.github.io/kestrel/) — update if the repo is ever
+      # renamed or moved to a custom domain (where it should be "/").
+      - run: npx ng build --base-href /kestrel/
+
+      # GitHub Pages has no server-side rewrites, so a direct link or
+      # refresh on a client-side route (e.g. /games/tic-tac-toe) would 404.
+      # Serving a copy of index.html as 404.html lets the Angular router
+      # take over and resolve the real route once the app loads.
+      - run: cp dist/kestrel/browser/index.html dist/kestrel/browser/404.html
+
+      # Prevents GitHub Pages' Jekyll processing from touching the build output
+      - run: touch dist/kestrel/browser/.nojekyll
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/kestrel/browser
+
+  # Deploys the build artifact to GitHub Pages — only for pushes to main,
+  # never for pull requests
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

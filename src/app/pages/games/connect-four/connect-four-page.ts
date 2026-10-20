@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
+import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService } from '../../../services/game-stats.service';
 
 type Player = 'red' | 'yellow';
@@ -56,7 +57,7 @@ function computeWinner(board: Cell[][]): Player | null {
   templateUrl: './connect-four-page.html',
   styleUrl: './connect-four-page.scss',
 })
-export class ConnectFourPage {
+export class ConnectFourPage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
 
   readonly columns = Array.from({ length: COLS }, (_, i) => i);
@@ -112,5 +113,9 @@ export class ConnectFourPage {
   reset(): void {
     this.board.set(createEmptyBoard());
     this.currentPlayer.set('red');
+  }
+
+  hasUnsavedProgress(): boolean {
+    return !this.isGameOver() && this.board().some((row) => row.some((cell) => cell !== null));
   }
 }

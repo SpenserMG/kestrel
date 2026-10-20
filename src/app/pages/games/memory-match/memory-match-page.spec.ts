@@ -104,6 +104,27 @@ describe('MemoryMatchPage', () => {
     expect(harness.cellButtons()).toHaveLength(12);
   });
 
+  it('reports unsaved progress mid-game, and none once solved or reset', async () => {
+    const { fixture } = await harness.renderComponent();
+    const page = fixture.componentInstance;
+    page.cards.set([
+      { id: 0, symbol: 'star' },
+      { id: 1, symbol: 'star' },
+    ]);
+    fixture.detectChanges();
+
+    expect(page.hasUnsavedProgress()).toBe(false);
+
+    const [first, second] = harness.cellButtons();
+    await user.click(first);
+    expect(page.hasUnsavedProgress()).toBe(true);
+
+    await user.click(second);
+    fixture.detectChanges();
+
+    expect(page.hasUnsavedProgress()).toBe(false);
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = await harness.renderComponent();
     await expectNoA11yViolations(container);

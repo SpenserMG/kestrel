@@ -22,18 +22,27 @@ export interface ConnectFourStats {
   draws: number;
 }
 
+export type MinesweeperDifficulty = 'beginner' | 'intermediate' | 'expert';
+
+export interface MinesweeperStats {
+  bestTimeSeconds: Partial<Record<MinesweeperDifficulty, number>>;
+}
+
 const TIC_TAC_TOE_STORAGE_KEY = 'kestrel.tic-tac-toe-stats';
 const MEMORY_MATCH_STORAGE_KEY = 'kestrel.memory-match-stats';
 const CONNECT_FOUR_STORAGE_KEY = 'kestrel.connect-four-stats';
+const MINESWEEPER_STORAGE_KEY = 'kestrel.minesweeper-stats';
 const EMPTY_TIC_TAC_TOE_STATS: TicTacToeStats = { xWins: 0, oWins: 0, draws: 0 };
 const EMPTY_MEMORY_MATCH_STATS: MemoryMatchStats = { bestMoves: {} };
 const EMPTY_CONNECT_FOUR_STATS: ConnectFourStats = { redWins: 0, yellowWins: 0, draws: 0 };
+const EMPTY_MINESWEEPER_STATS: MinesweeperStats = { bestTimeSeconds: {} };
 
 @Service()
 export class GameStatsService {
   readonly ticTacToe = signal<TicTacToeStats>(this.loadTicTacToe());
   readonly memoryMatch = signal<MemoryMatchStats>(this.loadMemoryMatch());
   readonly connectFour = signal<ConnectFourStats>(this.loadConnectFour());
+  readonly minesweeper = signal<MinesweeperStats>(this.loadMinesweeper());
 
   constructor() {
     effect(() => {
@@ -44,6 +53,9 @@ export class GameStatsService {
     });
     effect(() => {
       localStorage.setItem(CONNECT_FOUR_STORAGE_KEY, JSON.stringify(this.connectFour()));
+    });
+    effect(() => {
+      localStorage.setItem(MINESWEEPER_STORAGE_KEY, JSON.stringify(this.minesweeper()));
     });
   }
 
@@ -73,6 +85,16 @@ export class GameStatsService {
     }));
   }
 
+  recordMinesweeperWin(difficulty: MinesweeperDifficulty, timeSeconds: number): void {
+    this.minesweeper.update((stats) => {
+      const currentBest = stats.bestTimeSeconds[difficulty];
+      if (currentBest !== undefined && currentBest <= timeSeconds) {
+        return stats;
+      }
+      return { bestTimeSeconds: { ...stats.bestTimeSeconds, [difficulty]: timeSeconds } };
+    });
+  }
+
   private loadTicTacToe(): TicTacToeStats {
     try {
       const raw = localStorage.getItem(TIC_TAC_TOE_STORAGE_KEY);
@@ -97,6 +119,15 @@ export class GameStatsService {
       return raw ? (JSON.parse(raw) as ConnectFourStats) : EMPTY_CONNECT_FOUR_STATS;
     } catch {
       return EMPTY_CONNECT_FOUR_STATS;
+    }
+  }
+
+  private loadMinesweeper(): MinesweeperStats {
+    try {
+      const raw = localStorage.getItem(MINESWEEPER_STORAGE_KEY);
+      return raw ? (JSON.parse(raw) as MinesweeperStats) : EMPTY_MINESWEEPER_STATS;
+    } catch {
+      return EMPTY_MINESWEEPER_STATS;
     }
   }
 }
