@@ -48,6 +48,21 @@ jobs:
 
       - run: npm test -- --watch=false
 
+      # Overwrites the committed placeholder with the real key from a GitHub
+      # Actions secret — only ever in this ephemeral runner's checkout, never
+      # pushed back to git. fileReplacements (angular.json) swaps this file
+      # in for the production build below. GitHub Actions automatically
+      # masks the secret's value anywhere it would appear in logs.
+      - name: Inject REST Countries API key
+        env:
+          REST_COUNTRIES_API_KEY: ${{ secrets.REST_COUNTRIES_API_KEY }}
+        run: |
+          cat > src/environments/environment.prod.ts <<EOF
+          export const environment = {
+            restCountriesApiKey: '$REST_COUNTRIES_API_KEY',
+          };
+          EOF
+
       # /kestrel/ matches this repo's GitHub Pages project-page URL
       # (https://spensermg.github.io/kestrel/) — update if the repo is ever
       # renamed or moved to a custom domain (where it should be "/").

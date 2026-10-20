@@ -1,0 +1,65 @@
+<div class="country-table-tanstack">
+  <table class="tanstack-table">
+    <thead>
+      @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+        <tr>
+          @for (header of headerGroup.headers; track header.id) {
+            <th
+              [attr.aria-sort]="
+                header.column.getIsSorted() === 'asc'
+                  ? 'ascending'
+                  : header.column.getIsSorted() === 'desc'
+                    ? 'descending'
+                    : null
+              "
+            >
+              @if (!header.isPlaceholder) {
+                @if (header.column.getCanSort()) {
+                  <button
+                    type="button"
+                    class="tanstack-sort-button"
+                    (click)="header.column.getToggleSortingHandler()?.($event)"
+                  >
+                    {{ header.column.columnDef.header }}
+                    @if (header.column.getIsSorted() === 'asc') {
+                      <span aria-hidden="true">&uarr;</span>
+                    } @else if (header.column.getIsSorted() === 'desc') {
+                      <span aria-hidden="true">&darr;</span>
+                    }
+                  </button>
+                } @else {
+                  {{ header.column.columnDef.header }}
+                }
+              }
+            </th>
+          }
+        </tr>
+      }
+    </thead>
+    <tbody>
+      @for (row of table.getRowModel().rows; track row.id) {
+        <tr>
+          @for (cell of row.getAllCells(); track cell.id) {
+            <td><ng-container *flexRenderCell="cell; let value">{{ value }}</ng-container></td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="tanstack-pagination">
+    <app-button
+      label="Previous"
+      variant="outlined"
+      [disabled]="!table.getCanPreviousPage()"
+      (pressed)="table.previousPage()"
+    />
+    <span>Page {{ table.atoms.pagination.get().pageIndex + 1 }} of {{ table.getPageCount() }}</span>
+    <app-button
+      label="Next"
+      variant="outlined"
+      [disabled]="!table.getCanNextPage()"
+      (pressed)="table.nextPage()"
+    />
+  </div>
+</div>

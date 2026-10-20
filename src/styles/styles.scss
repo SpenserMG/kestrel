@@ -23,6 +23,11 @@ $_primary-palette: map.merge(
 
 /* Light Theme */
 .light-theme {
+  // Lets native browser UI (scrollbars, form controls) and anything
+  // referencing `browserColorScheme: 'inherit'` (e.g. the AG Grid theme)
+  // track this theme instead of only the OS-level preference.
+  color-scheme: light;
+
   @include mat.theme(
     (
       color: (
@@ -36,6 +41,8 @@ $_primary-palette: map.merge(
 
 /* Dark Theme */
 .dark-theme {
+  color-scheme: dark;
+
   @include mat.theme(
     (
       color: (

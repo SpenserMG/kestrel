@@ -31,5 +31,9 @@ export const routes: Routes = [
       import('./pages/games/minesweeper/minesweeper-page').then((m) => m.MinesweeperPage),
     canDeactivate: [confirmExitGuard],
   },
+  {
+    path: 'data-tables',
+    loadComponent: () => import('./pages/data-tables/data-tables-page').then((m) => m.DataTablesPage),
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
