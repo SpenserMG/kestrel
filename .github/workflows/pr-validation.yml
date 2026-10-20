@@ -2,7 +2,7 @@
 # pure correctness check with no deploy step; see deploy.yml for the
 # separate workflow that actually publishes main to GitHub Pages.
 
-name: CI
+name: PR Validation
 
 on:
   # Default pull_request activity types are opened, synchronize, and
