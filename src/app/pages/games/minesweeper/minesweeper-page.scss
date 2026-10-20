@@ -1,0 +1,76 @@
+.minesweeper-board {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--mat-sys-surface-container-high);
+}
+
+.minesweeper-cell {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 4px;
+  background: var(--mat-sys-surface-container-low);
+  color: var(--mat-sys-on-surface);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 100ms ease;
+
+  app-icon {
+    width: 70%;
+    height: 70%;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--mat-sys-surface-container-highest);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+
+  &.revealed {
+    background: var(--mat-sys-surface);
+    cursor: default;
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &[data-count='1'] {
+    color: #1565c0;
+  }
+
+  &[data-count='2'] {
+    color: #2e7d32;
+  }
+
+  &[data-count='3'] {
+    color: #c62828;
+  }
+
+  &[data-count='4'] {
+    color: #6a1b9a;
+  }
+
+  &[data-count='5'] {
+    color: #ef6c00;
+  }
+
+  &[data-count='6'],
+  &[data-count='7'],
+  &[data-count='8'] {
+    color: #00838f;
+  }
+}

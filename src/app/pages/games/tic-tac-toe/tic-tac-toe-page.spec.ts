@@ -78,6 +78,24 @@ describe('TicTacToePage', () => {
     expect(screen.getByText("X's turn")).toBeInTheDocument();
   });
 
+  it('reports unsaved progress once a move is made, and none once the game ends', async () => {
+    const { fixture } = await harness.renderComponent();
+    const page = fixture.componentInstance;
+
+    expect(page.hasUnsavedProgress()).toBe(false);
+
+    // X: 0, 1, 2 | O: 3, 4
+    await user.click(harness.cell(0));
+    expect(page.hasUnsavedProgress()).toBe(true);
+
+    await user.click(harness.cell(3));
+    await user.click(harness.cell(1));
+    await user.click(harness.cell(4));
+    await user.click(harness.cell(2));
+
+    expect(page.hasUnsavedProgress()).toBe(false);
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = await harness.renderComponent();
     await expectNoA11yViolations(container);

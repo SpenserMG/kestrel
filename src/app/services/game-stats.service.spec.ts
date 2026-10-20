@@ -83,4 +83,37 @@ describe('GameStatsService', () => {
 
     expect(gameStats.connectFour()).toEqual({ redWins: 2, yellowWins: 1, draws: 1 });
   });
+
+  it('defaults to no minesweeper best times', () => {
+    const gameStats = TestBed.inject(GameStatsService);
+
+    expect(gameStats.minesweeper()).toEqual({ bestTimeSeconds: {} });
+  });
+
+  it('records a minesweeper win as the best time for its difficulty', () => {
+    const gameStats = TestBed.inject(GameStatsService);
+
+    gameStats.recordMinesweeperWin('beginner', 45);
+
+    expect(gameStats.minesweeper()).toEqual({ bestTimeSeconds: { beginner: 45 } });
+  });
+
+  it('only keeps the lower time as the best score', () => {
+    const gameStats = TestBed.inject(GameStatsService);
+
+    gameStats.recordMinesweeperWin('beginner', 45);
+    gameStats.recordMinesweeperWin('beginner', 60);
+    gameStats.recordMinesweeperWin('beginner', 30);
+
+    expect(gameStats.minesweeper()).toEqual({ bestTimeSeconds: { beginner: 30 } });
+  });
+
+  it('tracks best times independently per difficulty', () => {
+    const gameStats = TestBed.inject(GameStatsService);
+
+    gameStats.recordMinesweeperWin('beginner', 45);
+    gameStats.recordMinesweeperWin('expert', 300);
+
+    expect(gameStats.minesweeper()).toEqual({ bestTimeSeconds: { beginner: 45, expert: 300 } });
+  });
 });

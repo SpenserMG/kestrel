@@ -51,6 +51,17 @@ describe('GamesPage', () => {
     );
   });
 
+  it('renders a tile linking to minesweeper', async () => {
+    await harness.renderComponent();
+
+    expect(screen.getByText('Minesweeper')).toBeInTheDocument();
+    expect(screen.getByText('Clear the board without hitting a mine')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Minesweeper/ })).toHaveAttribute(
+      'href',
+      '/games/minesweeper',
+    );
+  });
+
   it('has no accessibility violations', async () => {
     const { container } = await harness.renderComponent();
     await expectNoA11yViolations(container);
