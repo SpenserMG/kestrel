@@ -1,0 +1,33 @@
+# Validates pull requests targeting main — lint, test, build. This is a
+# pure correctness check with no deploy step; see deploy.yml for the
+# separate workflow that actually publishes main to GitHub Pages.
+
+name: CI
+
+on:
+  # Default pull_request activity types are opened, synchronize, and
+  # reopened — "synchronize" is what fires on every new push to the PR branch.
+  pull_request:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm test -- --watch=false
+
+      - run: npx ng build

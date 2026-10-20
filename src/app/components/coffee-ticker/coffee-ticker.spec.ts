@@ -40,7 +40,7 @@ describe('CoffeeTicker', () => {
 
   it('renders the fixed label', async () => {
     await harness.renderComponent();
-    expect(screen.getByText('Coffee you should try')).toBeInTheDocument();
+    expect(screen.getByText('Coffees')).toBeInTheDocument();
   });
 
   it('lists every coffee for assistive technology', async () => {
