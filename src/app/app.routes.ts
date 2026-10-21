@@ -35,5 +35,11 @@ export const routes: Routes = [
     path: 'data-tables',
     loadComponent: () => import('./pages/data-tables/data-tables-page').then((m) => m.DataTablesPage),
   },
+  {
+    path: 'score-tracker',
+    loadComponent: () =>
+      import('./pages/score-tracker/score-tracker-page').then((m) => m.ScoreTrackerPage),
+    canDeactivate: [confirmExitGuard],
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

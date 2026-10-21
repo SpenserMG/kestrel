@@ -1,0 +1,50 @@
+<div class="mx-auto flex max-w-4xl flex-col gap-4 p-4">
+  <h1>Score Tracker</h1>
+
+  <p>
+    Type directly into any cell to keep track of player scores, add rows or columns if you need it
+    and save the table so you don't lose your place if anything happens!
+  </p>
+
+  <div class="flex flex-wrap items-center gap-4">
+    <app-button label="Add row" variant="outlined" (pressed)="addRow()" />
+    <app-button
+      label="Remove row"
+      variant="outlined"
+      [disabled]="rowCount() <= 1"
+      (pressed)="removeRow()"
+    />
+    <app-button label="Add column" variant="outlined" (pressed)="addColumn()" />
+    <app-button
+      label="Remove column"
+      variant="outlined"
+      [disabled]="columnCount() <= 1"
+      (pressed)="removeColumn()"
+    />
+    <app-button label="Clear table" variant="outlined" (pressed)="clearTable()" />
+    <app-button label="Save" (pressed)="save()" />
+    <p aria-live="polite">{{ hasUnsavedChanges() ? 'Unsaved changes' : 'All changes saved' }}</p>
+  </div>
+
+  <div class="score-tracker-table-wrapper">
+    <table class="score-tracker-table">
+      <caption class="sr-only">Editable score tracking grid</caption>
+      <tbody>
+        @for (row of cells(); track $index; let r = $index) {
+          <tr>
+            @for (cell of row; track $index; let c = $index) {
+              <td>
+                <input
+                  type="text"
+                  [value]="cell"
+                  [attr.aria-label]="'Row ' + (r + 1) + ', column ' + (c + 1)"
+                  (input)="updateCell(r, c, $event)"
+                />
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

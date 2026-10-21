@@ -23,16 +23,16 @@ describe('confirmExitGuard', () => {
     expect(confirmSpy).not.toHaveBeenCalled();
   });
 
-  it('allows navigation when the user confirms leaving mid-game', () => {
+  it('allows navigation when the user confirms leaving with unsaved progress', () => {
     vi.spyOn(window, 'confirm').mockReturnValue(true);
 
     const result = runGuard({ hasUnsavedProgress: () => true });
 
     expect(result).toBe(true);
-    expect(window.confirm).toHaveBeenCalledWith('Leave this game? Your progress will be lost.');
+    expect(window.confirm).toHaveBeenCalledWith('Leave this page? Your changes will be lost.');
   });
 
-  it('blocks navigation when the user cancels leaving mid-game', () => {
+  it('blocks navigation when the user cancels leaving with unsaved progress', () => {
     vi.spyOn(window, 'confirm').mockReturnValue(false);
 
     const result = runGuard({ hasUnsavedProgress: () => true });
