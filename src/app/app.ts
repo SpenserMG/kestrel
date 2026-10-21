@@ -33,7 +33,7 @@ const PHONE_QUERY = '(max-width: 639.98px)';
 export class App {
   private readonly breakpointObserver = inject(BreakpointObserver);
 
-  readonly navCollapsed = signal(false);
+  readonly navCollapsed = signal(true);
 
   private readonly isPhone = toSignal(
     this.breakpointObserver.observe(PHONE_QUERY).pipe(map((state) => state.matches)),

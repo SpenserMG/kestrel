@@ -24,6 +24,7 @@ import {
   Sun,
   Table,
   Timer,
+  Trophy,
   Umbrella,
   Zap,
 } from 'lucide-static';
@@ -52,6 +53,7 @@ const ICONS: Record<string, string> = {
   sun: Sun,
   table: Table,
   timer: Timer,
+  trophy: Trophy,
   umbrella: Umbrella,
   zap: Zap,
 };

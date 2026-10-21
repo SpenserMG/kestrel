@@ -27,6 +27,10 @@
           <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="table" />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Data Tables</span>
         </a>
+        <a mat-list-item routerLink="/score-tracker">
+          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="trophy" />
+          <span class="flex justify-center" [class.sr-only]="navCollapsed()">Score Tracker</span>
+        </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content [style.margin-left]="contentMargin()">
