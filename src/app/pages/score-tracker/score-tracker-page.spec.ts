@@ -143,7 +143,7 @@ describe('ScoreTrackerPage', () => {
     expect(harness.cell(0, 3)).toHaveValue('10');
   });
 
-  it('clears the table back to the starting 2x4 grid when confirmed', async () => {
+  it('clears the table back to the starting 2x4 grid and saves it when confirmed', async () => {
     const { fixture } = await harness.renderComponent();
     vi.spyOn(window, 'confirm').mockReturnValue(true);
 
@@ -153,7 +153,12 @@ describe('ScoreTrackerPage', () => {
     expect(window.confirm).toHaveBeenCalledWith('Clear the entire table? This cannot be undone.');
     expect(harness.cells()).toHaveLength(8);
     expect(harness.cell(0, 0)).toHaveValue('');
-    expect(fixture.componentInstance.hasUnsavedProgress()).toBe(true);
+    expect(screen.getByText('All changes saved')).toBeInTheDocument();
+    expect(fixture.componentInstance.hasUnsavedProgress()).toBe(false);
+    expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!).cells).toEqual([
+      ['', '', '', ''],
+      ['', '', '', ''],
+    ]);
   });
 
   it('leaves the table untouched when clearing is cancelled', async () => {

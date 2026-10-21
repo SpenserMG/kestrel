@@ -92,7 +92,7 @@ export class ScoreTrackerPage implements CanComponentDeactivate {
       return;
     }
     this.cells.set(createEmptyGrid(INITIAL_ROWS, INITIAL_COLUMNS));
-    this.hasUnsavedChanges.set(true);
+    this.save();
   }
 
   save(): void {
