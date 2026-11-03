@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
+import { Fireworks } from '../../../atoms/fireworks/fireworks';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService } from '../../../services/game-stats.service';
 
@@ -53,7 +54,7 @@ function computeWinner(board: Cell[][]): Player | null {
 
 @Component({
   selector: 'app-connect-four-page',
-  imports: [Button, MatRipple],
+  imports: [Button, MatRipple, Fireworks],
   templateUrl: './connect-four-page.html',
   styleUrl: './connect-four-page.scss',
 })

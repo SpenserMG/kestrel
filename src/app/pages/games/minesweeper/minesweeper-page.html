@@ -1,4 +1,6 @@
-<div class="mx-auto flex max-w-2xl flex-col items-center gap-4 p-4">
+<div class="relative mx-auto flex max-w-2xl flex-col items-center gap-4 p-4">
+  <app-fireworks [active]="isWon()" />
+
   <h1>Minesweeper</h1>
 
   <app-select

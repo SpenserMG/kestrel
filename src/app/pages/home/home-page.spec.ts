@@ -1,8 +1,10 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { expectNoA11yViolations } from '../../test-utils/axe';
 import { HomePage } from './home-page';
+import { ProfileService } from '../../services/profile.service';
 
 class HomePageHarness {
   async renderComponent() {
@@ -16,12 +18,22 @@ describe('HomePage', () => {
   let harness: HomePageHarness;
 
   beforeEach(() => {
+    localStorage.clear();
     harness = new HomePageHarness();
   });
 
-  it('renders the welcome message', async () => {
+  it('renders a generic welcome message when no profile is saved', async () => {
     await harness.renderComponent();
     expect(screen.getByText('welcome!')).toBeTruthy();
+  });
+
+  it('greets the saved display name when a profile exists', async () => {
+    await harness.renderComponent();
+    const profileService = TestBed.inject(ProfileService);
+
+    profileService.save({ displayName: 'Jane', favoriteGame: 'none', notifyOnHighScores: false });
+
+    expect(await screen.findByText('welcome, Jane!')).toBeInTheDocument();
   });
 
   it('has no accessibility violations', async () => {
