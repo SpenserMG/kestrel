@@ -1,6 +1,7 @@
 import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
+import { Fireworks } from '../../../atoms/fireworks/fireworks';
 import { Icon } from '../../../atoms/icon/icon';
 import { Select, SelectOption } from '../../../atoms/select/select';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
@@ -125,7 +126,7 @@ function revealCell(board: MinesweeperCell[][], row: number, col: number): void 
 
 @Component({
   selector: 'app-minesweeper-page',
-  imports: [Button, Icon, MatRipple, Select],
+  imports: [Button, Fireworks, Icon, MatRipple, Select],
   templateUrl: './minesweeper-page.html',
   styleUrl: './minesweeper-page.scss',
 })

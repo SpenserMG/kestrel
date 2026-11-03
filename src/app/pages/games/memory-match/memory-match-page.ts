@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { MatRipple } from '@angular/material/core';
 import { Button } from '../../../atoms/button/button';
+import { Fireworks } from '../../../atoms/fireworks/fireworks';
 import { Icon } from '../../../atoms/icon/icon';
 import { Select, SelectOption } from '../../../atoms/select/select';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
@@ -55,7 +56,7 @@ function buildDeck(pairs: number): MemoryCard[] {
 
 @Component({
   selector: 'app-memory-match-page',
-  imports: [Button, Icon, MatRipple, Select],
+  imports: [Button, Fireworks, Icon, MatRipple, Select],
   templateUrl: './memory-match-page.html',
   styleUrl: './memory-match-page.scss',
 })

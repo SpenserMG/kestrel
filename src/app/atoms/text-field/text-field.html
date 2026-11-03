@@ -1,0 +1,17 @@
+<mat-form-field subscriptSizing="dynamic">
+  <mat-label>{{ label() }}</mat-label>
+  @if (multiline()) {
+    <textarea matInput [value]="value()" (input)="onInput($event)" (blur)="touch.emit()"></textarea>
+  } @else {
+    <input
+      matInput
+      [type]="type()"
+      [value]="value()"
+      (input)="onInput($event)"
+      (blur)="touch.emit()"
+    />
+  }
+  @if (errorMessage(); as message) {
+    <mat-error>{{ message }}</mat-error>
+  }
+</mat-form-field>

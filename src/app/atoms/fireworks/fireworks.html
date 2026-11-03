@@ -1,0 +1,16 @@
+@if (visible()) {
+  <div class="fireworks" aria-hidden="true">
+    @for (burst of bursts(); track burst.id) {
+      <div class="burst" [style.left.%]="burst.leftPercent" [style.top.%]="burst.topPercent">
+        @for (angle of particleAngles; track angle) {
+          <span
+            class="particle"
+            [style.--angle.deg]="angle"
+            [style.--particle-color]="burst.color"
+            [style.animation-delay.ms]="burst.delayMs"
+          ></span>
+        }
+      </div>
+    }
+  </div>
+}

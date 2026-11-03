@@ -26,6 +26,8 @@ import {
   Timer,
   Trophy,
   Umbrella,
+  UserCircle,
+  X,
   Zap,
 } from 'lucide-static';
 
@@ -55,6 +57,8 @@ const ICONS: Record<string, string> = {
   timer: Timer,
   trophy: Trophy,
   umbrella: Umbrella,
+  'user-circle': UserCircle,
+  x: X,
   zap: Zap,
 };
 

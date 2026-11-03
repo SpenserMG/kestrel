@@ -1,7 +1,9 @@
 import { provideRouter } from '@angular/router';
+import { TestBed } from '@angular/core/testing';
 import { render, screen } from '@testing-library/angular';
 import { GamesPage } from './games-page';
 import { expectNoA11yViolations } from '../../test-utils/axe';
+import { ProfileService } from '../../services/profile.service';
 
 class GamesPageHarness {
   async renderComponent() {
@@ -15,6 +17,7 @@ describe('GamesPage', () => {
   let harness: GamesPageHarness;
 
   beforeEach(() => {
+    localStorage.clear();
     harness = new GamesPageHarness();
   });
 
@@ -60,6 +63,26 @@ describe('GamesPage', () => {
       'href',
       '/games/minesweeper',
     );
+  });
+
+  it('does not render a favorite game section or divider when no profile is saved', async () => {
+    await harness.renderComponent();
+
+    expect(screen.queryByText('Favorite Game')).not.toBeInTheDocument();
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+  });
+
+  it('renders a favorite game section and divider when a favorite is saved', async () => {
+    await harness.renderComponent();
+    TestBed.inject(ProfileService).save({
+      displayName: 'Jane',
+      favoriteGame: 'minesweeper',
+      notifyOnHighScores: false,
+    });
+
+    expect(await screen.findByText('Favorite Game')).toBeInTheDocument();
+    expect(screen.getAllByText('Minesweeper')).toHaveLength(2);
+    expect(screen.getByRole('separator')).toBeInTheDocument();
   });
 
   it('has no accessibility violations', async () => {

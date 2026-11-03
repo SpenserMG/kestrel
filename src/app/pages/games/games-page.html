@@ -1,18 +1,24 @@
 <div class="mx-auto flex max-w-3xl flex-col gap-4 p-4">
   <h1>Games</h1>
 
+  @if (favoriteGame(); as favorite) {
+    <section class="flex flex-col gap-2">
+      <h2>Favorite Game</h2>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <app-card [title]="favorite.title" [link]="favorite.link" primaryButtonText="Go">
+          {{ favorite.description }}
+        </app-card>
+      </div>
+    </section>
+
+    <app-divider class="my-4" />
+  }
+
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-    <app-card title="Tic-Tac-Toe" link="/games/tic-tac-toe" primaryButtonText="Go">
-      Simple 2-player tic-tac-toe
-    </app-card>
-    <app-card title="Memory Match" link="/games/memory-match" primaryButtonText="Go">
-      Flip cards to find matching pairs
-    </app-card>
-    <app-card title="Connect Four" link="/games/connect-four" primaryButtonText="Go">
-      Drop pieces, get four in a row
-    </app-card>
-    <app-card title="Minesweeper" link="/games/minesweeper" primaryButtonText="Go">
-      Clear the board without hitting a mine
-    </app-card>
+    @for (game of games; track game.id) {
+      <app-card [title]="game.title" [link]="game.link" primaryButtonText="Go">
+        {{ game.description }}
+      </app-card>
+    }
   </div>
 </div>

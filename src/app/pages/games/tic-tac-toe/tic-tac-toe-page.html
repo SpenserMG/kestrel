@@ -1,4 +1,6 @@
-<div class="mx-auto flex max-w-sm flex-col items-center gap-4 p-4">
+<div class="relative mx-auto flex max-w-sm flex-col items-center gap-4 p-4">
+  <app-fireworks [active]="!!winner()" />
+
   <h1>Tic-Tac-Toe</h1>
 
   <p aria-live="polite">
