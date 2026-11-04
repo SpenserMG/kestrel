@@ -6,6 +6,7 @@ import { Icon } from '../../../atoms/icon/icon';
 import { Select, SelectOption } from '../../../atoms/select/select';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService, MinesweeperDifficulty } from '../../../services/game-stats.service';
+import { ProfileService } from '../../../services/profile.service';
 
 interface MinesweeperCell {
   isMine: boolean;
@@ -132,6 +133,7 @@ function revealCell(board: MinesweeperCell[][], row: number, col: number): void 
 })
 export class MinesweeperPage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
+  protected readonly profileService = inject(ProfileService);
   private readonly destroyRef = inject(DestroyRef);
 
   private timerHandle: ReturnType<typeof setInterval> | undefined;

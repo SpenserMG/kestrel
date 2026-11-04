@@ -1,7 +1,4 @@
 import { render, screen } from '@testing-library/angular';
-import { userEvent } from '@testing-library/user-event';
-import { vi } from 'vitest';
-import { MatDialogRef } from '@angular/material/dialog';
 import { Dialog } from './dialog';
 import { expectNoA11yViolations } from '../../test-utils/axe';
 
@@ -15,12 +12,9 @@ const TEMPLATE = `
 `;
 
 class DialogHarness {
-  readonly closeSpy = vi.fn();
-
   async renderComponent() {
     return render(TEMPLATE, {
       imports: [Dialog],
-      providers: [{ provide: MatDialogRef, useValue: { close: this.closeSpy } }],
     });
   }
 }
@@ -40,13 +34,10 @@ describe('Dialog', () => {
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
   });
 
-  it('closes the dialog when the close button is clicked', async () => {
-    const user = userEvent.setup();
+  it('does not render a close button', async () => {
     await harness.renderComponent();
 
-    await user.click(screen.getByRole('button', { name: 'Close dialog' }));
-
-    expect(harness.closeSpy).toHaveBeenCalledTimes(1);
+    expect(screen.queryByRole('button', { name: 'Close dialog' })).not.toBeInTheDocument();
   });
 
   it('has no accessibility violations', async () => {

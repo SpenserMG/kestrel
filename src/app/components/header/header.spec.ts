@@ -19,11 +19,6 @@ describe('Header', () => {
     harness = new HeaderHarness();
   });
 
-  it('renders the theme switcher', async () => {
-    await harness.renderComponent();
-    expect(screen.getByRole('combobox', { name: 'Theme' })).toBeInTheDocument();
-  });
-
   it('links the logo to the home page', async () => {
     await harness.renderComponent();
     expect(screen.getByRole('link', { name: 'Go to home page' })).toHaveAttribute(

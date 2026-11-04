@@ -4,6 +4,7 @@ import { Button } from '../../../atoms/button/button';
 import { Fireworks } from '../../../atoms/fireworks/fireworks';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService } from '../../../services/game-stats.service';
+import { ProfileService } from '../../../services/profile.service';
 
 type Player = 'X' | 'O';
 type Cell = Player | null;
@@ -27,6 +28,7 @@ const WIN_LINES: readonly (readonly [number, number, number])[] = [
 })
 export class TicTacToePage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
+  protected readonly profileService = inject(ProfileService);
 
   readonly board = signal<Cell[]>(Array(9).fill(null));
   readonly currentPlayer = signal<Player>('X');

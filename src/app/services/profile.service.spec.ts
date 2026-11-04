@@ -18,13 +18,13 @@ describe('ProfileService', () => {
     profile.save({
       displayName: 'Jane',
       favoriteGame: 'minesweeper',
-      notifyOnHighScores: true,
+      fireworksEnabled: true,
     });
 
     expect(profile.profile()).toEqual({
       displayName: 'Jane',
       favoriteGame: 'minesweeper',
-      notifyOnHighScores: true,
+      fireworksEnabled: true,
     });
   });
 
@@ -33,7 +33,7 @@ describe('ProfileService', () => {
     first.save({
       displayName: 'Jane',
       favoriteGame: 'none',
-      notifyOnHighScores: false,
+      fireworksEnabled: false,
     });
     TestBed.tick();
 
@@ -41,5 +41,34 @@ describe('ProfileService', () => {
     const second = TestBed.inject(ProfileService);
 
     expect(second.profile()?.displayName).toBe('Jane');
+  });
+
+  it('defaults fireworksEnabled to true when no profile is saved', () => {
+    const profile = TestBed.inject(ProfileService);
+
+    expect(profile.fireworksEnabled()).toBe(true);
+  });
+
+  it('reflects the saved profile value for fireworksEnabled', () => {
+    const profile = TestBed.inject(ProfileService);
+
+    profile.save({ displayName: 'Jane', favoriteGame: 'none', fireworksEnabled: false });
+
+    expect(profile.fireworksEnabled()).toBe(false);
+  });
+
+  it('fills in missing fields for a profile saved under an older shape', () => {
+    localStorage.setItem(
+      'kestrel.profile',
+      JSON.stringify({ displayName: 'Jane', favoriteGame: 'minesweeper', notifyOnHighScores: false }),
+    );
+
+    const profile = TestBed.inject(ProfileService);
+
+    expect(profile.profile()).toMatchObject({
+      displayName: 'Jane',
+      favoriteGame: 'minesweeper',
+      fireworksEnabled: true,
+    });
   });
 });

@@ -6,6 +6,7 @@ import { Icon } from '../../../atoms/icon/icon';
 import { Select, SelectOption } from '../../../atoms/select/select';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService, MemoryMatchDifficulty } from '../../../services/game-stats.service';
+import { ProfileService } from '../../../services/profile.service';
 
 interface MemoryCard {
   id: number;
@@ -62,6 +63,7 @@ function buildDeck(pairs: number): MemoryCard[] {
 })
 export class MemoryMatchPage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
+  protected readonly profileService = inject(ProfileService);
 
   readonly difficultyOptions = DIFFICULTY_OPTIONS;
   readonly difficulty = signal<MemoryMatchDifficulty>('easy');

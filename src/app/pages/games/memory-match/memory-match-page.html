@@ -1,5 +1,5 @@
 <div class="relative mx-auto flex max-w-2xl flex-col items-center gap-4 p-4">
-  <app-fireworks [active]="isWon()" />
+  <app-fireworks [active]="isWon() && profileService.fireworksEnabled()" />
 
   <h1>Memory Match</h1>
 

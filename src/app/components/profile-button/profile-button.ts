@@ -20,6 +20,6 @@ export class ProfileButton {
   );
 
   protected openProfile(): void {
-    this.dialog.open(ProfileForm);
+    this.dialog.open(ProfileForm, { disableClose: true, width: '480px' });
   }
 }

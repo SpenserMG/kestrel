@@ -4,6 +4,7 @@ import { Button } from '../../../atoms/button/button';
 import { Fireworks } from '../../../atoms/fireworks/fireworks';
 import { CanComponentDeactivate } from '../../../guards/confirm-exit.guard';
 import { GameStatsService } from '../../../services/game-stats.service';
+import { ProfileService } from '../../../services/profile.service';
 
 type Player = 'red' | 'yellow';
 type Cell = Player | null;
@@ -60,6 +61,7 @@ function computeWinner(board: Cell[][]): Player | null {
 })
 export class ConnectFourPage implements CanComponentDeactivate {
   private readonly gameStats = inject(GameStatsService);
+  protected readonly profileService = inject(ProfileService);
 
   readonly columns = Array.from({ length: COLS }, (_, i) => i);
   readonly rows = Array.from({ length: ROWS }, (_, i) => i);

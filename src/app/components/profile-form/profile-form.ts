@@ -6,6 +6,7 @@ import { TextField } from '../../atoms/text-field/text-field';
 import { Toggle } from '../../atoms/toggle/toggle';
 import { Select, SelectOption } from '../../atoms/select/select';
 import { Button } from '../../atoms/button/button';
+import { ThemeSwitcher } from '../theme-switcher/theme-switcher';
 import { EMPTY_PROFILE, ProfileData, ProfileService } from '../../services/profile.service';
 import { GAMES_CATALOG } from '../../data/games-catalog';
 
@@ -16,7 +17,7 @@ const FAVORITE_GAME_OPTIONS: SelectOption[] = [
 
 @Component({
   selector: 'app-profile-form',
-  imports: [Dialog, TextField, Toggle, Select, Button, FormField],
+  imports: [Dialog, TextField, Toggle, Select, Button, ThemeSwitcher, FormField],
   templateUrl: './profile-form.html',
   styleUrl: './profile-form.scss',
 })
@@ -26,7 +27,10 @@ export class ProfileForm {
 
   protected readonly favoriteGameOptions = FAVORITE_GAME_OPTIONS;
 
-  private readonly data = signal<ProfileData>(this.profileService.profile() ?? EMPTY_PROFILE);
+  private readonly hasExistingProfile = this.profileService.profile() !== null;
+  private readonly initialProfile: ProfileData = this.profileService.profile() ?? EMPTY_PROFILE;
+
+  private readonly data = signal<ProfileData>(this.initialProfile);
 
   protected readonly profileForm = form(this.data, (path) => {
     required(path.displayName, { message: 'Display name is required' });
@@ -35,9 +39,21 @@ export class ProfileForm {
 
   protected readonly displayNameError = computed(() => this.fieldError(this.profileForm.displayName()));
 
+  private readonly hasChanges = computed(() => {
+    const value = this.profileForm().value();
+    return (
+      value.displayName !== this.initialProfile.displayName ||
+      value.favoriteGame !== this.initialProfile.favoriteGame ||
+      value.fireworksEnabled !== this.initialProfile.fireworksEnabled
+    );
+  });
+
+  protected readonly canSave = computed(
+    () => this.profileForm().valid() && (!this.hasExistingProfile || this.hasChanges()),
+  );
+
   protected save(): void {
-    this.profileForm().markAsTouched();
-    if (this.profileForm().invalid()) {
+    if (!this.canSave()) {
       return;
     }
     this.profileService.save(this.profileForm().value());

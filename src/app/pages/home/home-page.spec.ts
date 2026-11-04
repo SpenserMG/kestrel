@@ -31,7 +31,7 @@ describe('HomePage', () => {
     await harness.renderComponent();
     const profileService = TestBed.inject(ProfileService);
 
-    profileService.save({ displayName: 'Jane', favoriteGame: 'none', notifyOnHighScores: false });
+    profileService.save({ displayName: 'Jane', favoriteGame: 'none', fireworksEnabled: true });
 
     expect(await screen.findByText('welcome, Jane!')).toBeInTheDocument();
   });

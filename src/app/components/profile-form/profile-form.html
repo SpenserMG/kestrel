@@ -6,10 +6,11 @@
       [errorMessage]="displayNameError()"
     />
     <app-select label="Favorite game" [options]="favoriteGameOptions" [formField]="profileForm.favoriteGame" />
-    <app-toggle label="Email me about new high scores" [formField]="profileForm.notifyOnHighScores" />
+    <app-toggle label="Show fireworks on game wins" [formField]="profileForm.fireworksEnabled" />
+    <app-theme-switcher />
   </div>
   <div appDialogActions class="flex gap-2">
     <app-button variant="text" label="Cancel" (pressed)="cancel()" />
-    <app-button label="Save" (pressed)="save()" />
+    <app-button label="Save" [disabled]="!canSave()" (pressed)="save()" />
   </div>
 </app-dialog>

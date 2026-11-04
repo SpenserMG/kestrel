@@ -1,7 +1,4 @@
-<div class="flex items-center justify-between gap-4" mat-dialog-title>
-  <span>{{ title() }}</span>
-  <app-icon-button icon="x" label="Close dialog" (pressed)="close()" />
-</div>
+<div mat-dialog-title>{{ title() }}</div>
 <mat-dialog-content>
   <ng-content />
 </mat-dialog-content>

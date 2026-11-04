@@ -1,15 +1,15 @@
-import { effect, Service, signal } from '@angular/core';
+import { computed, effect, Service, signal } from '@angular/core';
 
 export interface ProfileData {
   displayName: string;
   favoriteGame: string;
-  notifyOnHighScores: boolean;
+  fireworksEnabled: boolean;
 }
 
 export const EMPTY_PROFILE: ProfileData = {
   displayName: '',
   favoriteGame: 'none',
-  notifyOnHighScores: false,
+  fireworksEnabled: true,
 };
 
 const PROFILE_STORAGE_KEY = 'kestrel.profile';
@@ -17,6 +17,8 @@ const PROFILE_STORAGE_KEY = 'kestrel.profile';
 @Service()
 export class ProfileService {
   readonly profile = signal<ProfileData | null>(this.load());
+
+  readonly fireworksEnabled = computed(() => this.profile()?.fireworksEnabled ?? true);
 
   constructor() {
     effect(() => {
@@ -34,7 +36,10 @@ export class ProfileService {
   private load(): ProfileData | null {
     try {
       const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
-      return raw ? (JSON.parse(raw) as ProfileData) : null;
+      // Spread over EMPTY_PROFILE so a profile saved under an older shape (a
+      // field renamed or added since) still fills in every key Signal Forms
+      // expects, instead of leaving some fields undefined at runtime.
+      return raw ? { ...EMPTY_PROFILE, ...(JSON.parse(raw) as Partial<ProfileData>) } : null;
     } catch {
       return null;
     }
