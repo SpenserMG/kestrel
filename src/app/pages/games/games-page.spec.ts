@@ -77,7 +77,7 @@ describe('GamesPage', () => {
     TestBed.inject(ProfileService).save({
       displayName: 'Jane',
       favoriteGame: 'minesweeper',
-      fireworksEnabled: true,
+      showEffects: true,
     });
 
     expect(await screen.findByText('Favorite Game')).toBeInTheDocument();

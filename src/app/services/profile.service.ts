@@ -3,22 +3,35 @@ import { computed, effect, Service, signal } from '@angular/core';
 export interface ProfileData {
   displayName: string;
   favoriteGame: string;
-  fireworksEnabled: boolean;
+  showEffects: boolean;
 }
 
 export const EMPTY_PROFILE: ProfileData = {
   displayName: '',
   favoriteGame: 'none',
-  fireworksEnabled: true,
+  showEffects: false,
 };
 
 const PROFILE_STORAGE_KEY = 'kestrel.profile';
+
+// Falls back to EMPTY_PROFILE's default per-field, not just when the whole
+// record is missing, so a profile saved under an older shape (a field
+// renamed, removed, or retyped since) can't leave a field with the wrong
+// type and break the form.
+function normalizeProfile(raw: unknown): ProfileData {
+  const data = raw && typeof raw === 'object' ? (raw as Partial<ProfileData>) : {};
+  return {
+    displayName: typeof data.displayName === 'string' ? data.displayName : EMPTY_PROFILE.displayName,
+    favoriteGame: typeof data.favoriteGame === 'string' ? data.favoriteGame : EMPTY_PROFILE.favoriteGame,
+    showEffects: typeof data.showEffects === 'boolean' ? data.showEffects : EMPTY_PROFILE.showEffects,
+  };
+}
 
 @Service()
 export class ProfileService {
   readonly profile = signal<ProfileData | null>(this.load());
 
-  readonly fireworksEnabled = computed(() => this.profile()?.fireworksEnabled ?? true);
+  readonly showEffects = computed(() => this.profile()?.showEffects ?? EMPTY_PROFILE.showEffects);
 
   constructor() {
     effect(() => {
@@ -36,10 +49,7 @@ export class ProfileService {
   private load(): ProfileData | null {
     try {
       const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
-      // Spread over EMPTY_PROFILE so a profile saved under an older shape (a
-      // field renamed or added since) still fills in every key Signal Forms
-      // expects, instead of leaving some fields undefined at runtime.
-      return raw ? { ...EMPTY_PROFILE, ...(JSON.parse(raw) as Partial<ProfileData>) } : null;
+      return raw ? normalizeProfile(JSON.parse(raw)) : null;
     } catch {
       return null;
     }

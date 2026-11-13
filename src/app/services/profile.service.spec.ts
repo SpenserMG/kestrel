@@ -18,13 +18,13 @@ describe('ProfileService', () => {
     profile.save({
       displayName: 'Jane',
       favoriteGame: 'minesweeper',
-      fireworksEnabled: true,
+      showEffects: true,
     });
 
     expect(profile.profile()).toEqual({
       displayName: 'Jane',
       favoriteGame: 'minesweeper',
-      fireworksEnabled: true,
+      showEffects: true,
     });
   });
 
@@ -33,7 +33,7 @@ describe('ProfileService', () => {
     first.save({
       displayName: 'Jane',
       favoriteGame: 'none',
-      fireworksEnabled: false,
+      showEffects: false,
     });
     TestBed.tick();
 
@@ -43,21 +43,21 @@ describe('ProfileService', () => {
     expect(second.profile()?.displayName).toBe('Jane');
   });
 
-  it('defaults fireworksEnabled to true when no profile is saved', () => {
+  it('defaults showEffects to false when no profile is saved', () => {
     const profile = TestBed.inject(ProfileService);
 
-    expect(profile.fireworksEnabled()).toBe(true);
+    expect(profile.showEffects()).toBe(false);
   });
 
-  it('reflects the saved profile value for fireworksEnabled', () => {
+  it('reflects the saved profile value for showEffects', () => {
     const profile = TestBed.inject(ProfileService);
 
-    profile.save({ displayName: 'Jane', favoriteGame: 'none', fireworksEnabled: false });
+    profile.save({ displayName: 'Jane', favoriteGame: 'none', showEffects: true });
 
-    expect(profile.fireworksEnabled()).toBe(false);
+    expect(profile.showEffects()).toBe(true);
   });
 
-  it('fills in missing fields for a profile saved under an older shape', () => {
+  it('falls back to defaults for fields missing from an older saved shape', () => {
     localStorage.setItem(
       'kestrel.profile',
       JSON.stringify({ displayName: 'Jane', favoriteGame: 'minesweeper', notifyOnHighScores: false }),
@@ -68,7 +68,34 @@ describe('ProfileService', () => {
     expect(profile.profile()).toMatchObject({
       displayName: 'Jane',
       favoriteGame: 'minesweeper',
-      fireworksEnabled: true,
+      showEffects: false,
+    });
+  });
+
+  it('falls back to defaults for fields with an unexpected type', () => {
+    localStorage.setItem(
+      'kestrel.profile',
+      JSON.stringify({ displayName: 42, favoriteGame: null, showEffects: 'yes' }),
+    );
+
+    const profile = TestBed.inject(ProfileService);
+
+    expect(profile.profile()).toEqual({
+      displayName: '',
+      favoriteGame: 'none',
+      showEffects: false,
+    });
+  });
+
+  it('falls back to defaults entirely when the saved value is not an object', () => {
+    localStorage.setItem('kestrel.profile', JSON.stringify('not a profile'));
+
+    const profile = TestBed.inject(ProfileService);
+
+    expect(profile.profile()).toEqual({
+      displayName: '',
+      favoriteGame: 'none',
+      showEffects: false,
     });
   });
 });

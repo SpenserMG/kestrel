@@ -30,7 +30,7 @@ describe('ProfileForm', () => {
 
     expect(screen.getByRole('textbox', { name: 'Display name' })).toBeInTheDocument();
     expect(screen.getByRole('combobox', { name: 'Favorite game' })).toBeInTheDocument();
-    expect(screen.getByRole('switch', { name: 'Show fireworks on game wins' })).toBeInTheDocument();
+    expect(screen.getByRole('switch', { name: 'Show Effects' })).toBeInTheDocument();
     expect(screen.getByRole('combobox', { name: 'Theme' })).toBeInTheDocument();
   });
 
@@ -73,7 +73,7 @@ describe('ProfileForm', () => {
     const user = userEvent.setup();
     localStorage.setItem(
       'kestrel.profile',
-      JSON.stringify({ displayName: 'Jane', favoriteGame: 'none', fireworksEnabled: true }),
+      JSON.stringify({ displayName: 'Jane', favoriteGame: 'none', showEffects: true }),
     );
     await harness.renderComponent();
 

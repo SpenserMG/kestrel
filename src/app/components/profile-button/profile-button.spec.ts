@@ -35,7 +35,7 @@ describe('ProfileButton', () => {
     profileService.save({
       displayName: 'Jane',
       favoriteGame: 'none',
-      fireworksEnabled: true,
+      showEffects: true,
     });
 
     expect(await screen.findByRole('button', { name: 'Edit profile for Jane' })).toBeInTheDocument();

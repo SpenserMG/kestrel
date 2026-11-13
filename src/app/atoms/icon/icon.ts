@@ -2,14 +2,19 @@ import { Component, computed, inject, input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import {
   Anchor,
+  Birdhouse,
   Bomb,
   Cake,
   ChevronLeft,
   ChevronRight,
   Diamond,
+  Dices,
+  FileSpreadsheet,
   Flag,
   Flower2,
   Gamepad2,
+  Grid2X2Plus,
+  Grid3x2,
   Heart,
   HelpCircle,
   Home,
@@ -33,14 +38,19 @@ import {
 
 const ICONS: Record<string, string> = {
   anchor: Anchor,
+  birdhouse: Birdhouse,
   bomb: Bomb,
   cake: Cake,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
   diamond: Diamond,
+  dices: Dices,
   flag: Flag,
   'flower-2': Flower2,
+  'file-spreadsheet': FileSpreadsheet,
   'gamepad-2': Gamepad2,
+  'grid-2x2-plus': Grid2X2Plus,
+  'grid-3x2': Grid3x2,
   heart: Heart,
   'help-circle': HelpCircle,
   home: Home,
@@ -85,8 +95,12 @@ export class Icon {
     // Drop the library's hardcoded 24x24 width/height attributes so size is
     // fully controlled by CSS (see icon.scss) instead of fighting attribute
     // specificity at every call site that needs a different icon size.
+    // Scoped to the opening <svg> tag only — some icons (e.g. Pause) have
+    // their own width/height on inner shapes like <rect> that must stay.
     const sized = markup
-      .replace(/\s(width|height)="[^"]*"/g, '')
+      .replace(/^(\s*<svg\b[^>]*)>/, (_match, openTag) =>
+        `${openTag.replace(/\s(width|height)="[^"]*"/g, '')}>`,
+      )
       .replace(/stroke-width="[^"]*"/, `stroke-width="${this.strokeWidth()}"`);
     return this.sanitizer.bypassSecurityTrustHtml(sized);
   });

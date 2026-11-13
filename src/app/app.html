@@ -16,19 +16,39 @@
       </div>
       <mat-nav-list>
         <a mat-list-item routerLink="/home">
-          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="home" />
+          <app-icon
+            [class.hidden]="!navCollapsed()"
+            matListItemIcon
+            name="birdhouse"
+            [strokeWidth]="1.5"
+          />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Home</span>
         </a>
         <a mat-list-item routerLink="/games">
-          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="gamepad-2" />
+          <app-icon
+            [class.hidden]="!navCollapsed()"
+            matListItemIcon
+            name="dices"
+            [strokeWidth]="1.5"
+          />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Games</span>
         </a>
         <a mat-list-item routerLink="/data-tables">
-          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="table" />
+          <app-icon
+            [class.hidden]="!navCollapsed()"
+            matListItemIcon
+            name="file-spreadsheet"
+            [strokeWidth]="1.5"
+          />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Data Tables</span>
         </a>
         <a mat-list-item routerLink="/score-tracker">
-          <app-icon [class.hidden]="!navCollapsed()" matListItemIcon name="trophy" />
+          <app-icon
+            [class.hidden]="!navCollapsed()"
+            matListItemIcon
+            name="grid-2x2-plus"
+            [strokeWidth]="1.5"
+          />
           <span class="flex justify-center" [class.sr-only]="navCollapsed()">Score Tracker</span>
         </a>
       </mat-nav-list>

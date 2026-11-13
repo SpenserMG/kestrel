@@ -44,7 +44,7 @@ export class ProfileForm {
     return (
       value.displayName !== this.initialProfile.displayName ||
       value.favoriteGame !== this.initialProfile.favoriteGame ||
-      value.fireworksEnabled !== this.initialProfile.fireworksEnabled
+      value.showEffects !== this.initialProfile.showEffects
     );
   });
 
